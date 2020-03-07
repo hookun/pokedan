@@ -1,0 +1,155 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>ポケダンもじもじ</title>
+<meta name="description" content="ポケダンのメッセージウインドウを再現するアプリです。">
+<style>
+* {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font: inherit;
+    color: inherit;
+    background: none;
+    line-height: inherit;
+    border: none;
+    outline: 0;
+}
+:root {
+    --Cyan: #099399;
+    --Orange: #E75421;
+    --Green: #3E9753;
+    --White: #EFEFF5;
+    --Black: #1a1d10;
+    --WindowColor: #3a2828;
+    --BackgroundColor: var(--White);
+    --ForegroundColor: var(--Black);
+    --BaseWidth: 92vw;
+    --MaxWidth: 600px;
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    background-color: var(--BackgroundColor);
+    color: var(--ForegroundColor);
+    line-height: 1.5;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --BackgroundColor: var(--Black);
+        --ForegroundColor: var(--White);
+    }
+}
+h1, h2, p, summary {
+    width: var(--BaseWidth);
+    max-width: var(--MaxWidth);
+}
+h1 {
+    margin: 2rem auto 1rem auto;
+    font-size: 150%;
+}
+h2 {
+    margin: 2rem auto 1rem auto;
+    font-weight: bolder;
+}
+p, summary {
+    margin: 1rem auto;
+}
+svg {
+    display: block;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+svg[title="Preview"] {
+    width: var(--BaseWidth);
+    max-width: var(--MaxWidth);
+    margin: 1rem auto;
+    background-color: var(--WindowColor);
+    fill: var(--White);
+}
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto 0 auto;
+    padding: 2rem 0;
+}
+</style>
+<script src="./app.ts" defer></script>
+<h1>ポケダンもじもじ</h1>
+<p>このアプリは「ポケモン不思議のダンジョン 空の探検隊」を参考に作っています。</p>
+<div id="App">読み込み中です……</div>
+<details open>
+    <summary>開発用</summary>
+    <h2>文字テスト</h2>
+    <svg title="Preview" viewBox="-1 -1 101 101">
+        <use href="#U3042" x="0" y="0"/>
+        <use href="#U3044" x="10" y="0"/>
+        <use href="#U3046" x="20" y="0"/>
+        <use href="#U3048" x="30" y="0"/>
+        <use href="#U304A" x="40" y="0"/>
+        <use href="#U304B" x="0" y="10"/>
+        <use href="#U304D" x="10" y="10"/>
+        <use href="#U304F" x="20" y="10"/>
+        <use href="#U3051" x="30" y="10"/>
+        <use href="#U3053" x="40" y="10"/>
+        <use href="#U3055" x="0" y="20"/>
+        <use href="#U3057" x="10" y="20"/>
+        <use href="#U3059" x="20" y="20"/>
+        <use href="#U305B" x="30" y="20"/>
+        <use href="#U305D" x="40" y="20"/>
+        <use href="#U305F" x="0" y="30"/>
+        <use href="#U3061" x="10" y="30"/>
+        <use href="#U3064" x="20" y="30"/>
+        <use href="#U3066" x="30" y="30"/>
+        <use href="#U3068" x="40" y="30"/>
+    </svg>
+    <h2>影テスト</h2>
+    <svg title="Preview" viewBox="-1 -1 44 12">
+        <filter id="Preview-Shadow" filterUnits="userSpaceOnUse">
+            <feOffset dx="1" dy="0" in="SourceAlpha" result="Dx"/>
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="Dy"/>
+            <feComposite in="Dx" in2="Dy" result="Merged"/>
+            <feComponentTransfer in="Merged" result="Shadow">
+                <feFuncA type="linear" slope="0.25"/>
+            </feComponentTransfer>
+            <feComposite in="SourceGraphic" in2="Shadow"/>
+        </filter>
+        <rect x="21" y="-1" width="22" height="6" fill="var(--Green)"/>
+        <rect x="21" y="5" width="22" height="6" fill="var(--Orange)"/>
+        <use href="#U3042" x="0" y="0"/>
+        <use href="#U3042" x="10" y="0" filter="url(#Preview-Shadow)"/>
+        <use href="#U3042" x="22" y="0"/>
+        <use href="#U3042" x="32" y="0" filter="url(#Preview-Shadow)"/>
+    </svg>
+    <h2>文字パスの作成</h2>
+    <p>マスをクリックして編集します。</p>
+    <script id="PathGenerator" src="./PathGenerator/app.ts" defer></script>
+</details>
+<svg style="height:0">
+    <defs>
+        <!--あ--><path id="U3042" d="M1 1H3V0H4V1H8V2H4V3H7V4H8V5H9V8H8V9H6V8H8V5H7V4H6V6H5V7H4V8H3V9H1V8H0V5H1V4H2V3H3V2H1zM2 4V5H1V8H3V4zM4 4V6H5V4z"/>
+        <!--い--><path id="U3044" d="M0 1H1V7H2V8H3V6H4V8H3V9H1V7H0zM6 1H7V2H8V4H9V8H8V4H7V2H6z"/>
+        <!--う--><path id="U3046" d="M2 0H6V1H2V0zM2 2H7V3H8V7H7V8H5V9H2V8H5V7H7V3H2V4H0V3H2V2z"/>
+        <!--え--><path id="U3048" d="M2 0H6V1H2V0zM0 2H7V3H6V4H5V6H6V8H9V9H6V8H5V6H3V7H2V8H1V9H0V8H1V7H2V6H3V5H4V4H5V3H0V2z"/>
+        <!--お--><path id="U304A" d="M3 0H4V1H6V0H7V1H8V2H9V3H8V2H7V1H6V2H4V3H7V4H8V5H9V8H8V9H6V8H8V5H7V4H4V8H3V9H1V8H0V5H1V4H2V3H3V2H0V1H3V0zM2 4V5H1V8H3V4H2z"/>
+        <!--か--><path id="U304B" d="M2 0H3V2H5V3H6V8H5V9H3V8H5V3H3V6H2V8H1V9H0V8H1V6H2V3H0V2H2V0zM6 1H7V2H8V3H9V5H8V3H7V2H6V1z"/>
+        <!--き--><path id="U304D" d="M4 0H5V1H8V2H6V3H9V4H7V5H8V7H7V6H2V8H7V9H2V8H1V6H2V5H6V4H0V3H5V2H1V1H4V0z"/>
+        <!--く--><path id="U304F" d="M7 0H8V1H7V2H6V3H4V4H2V5H4V6H6V7H7V8H8V9H7V8H6V7H4V6H2V5H1V4H2V3H4V2H6V1H7V0z"/>
+        <!--け--><path id="U3051" d="M0 0H1V8H0V0zM6 0H7V2H9V3H7V7H6V8H5V9H3V8H5V7H6V3H2V2H6V0z"/>
+        <!--こ--><path id="U3053" d="M1 1H7V2H1V1zM1 5H2V6H1V8H8V9H1V8H0V6H1V5z"/>
+        <!--さ--><path id="U3055" d="M4 0H5V1H8V2H6V4H7V6H6V5H1V8H7V9H1V8H0V5H1V4H5V2H0V1H4V0z"/>
+        <!--し--><path id="U3057" d="M1 0H2V8H6V7H7V5H8V7H7V8H6V9H2V8H1V0z"/>
+        <!--す--><path id="U3059" d="M5 0H6V1H9V2H6V8H5V9H2V8H5V7H2V6H1V4H2V3H5V2H0V1H5V0zM2 4V6H5V4H2z"/>
+        <!--せ--><path id="U305B" d="M1 0H2V2H6V0H7V2H9V3H7V5H6V6H4V5H6V3H2V8H8V9H2V8H1V3H0V2H1V0z"/>
+        <!--そ--><path id="U305D" d="M1 0H7V1H5V2H4V3H9V4H5V5H4V8H7V9H4V8H3V5H4V4H0V3H3V2H4V1H1V0z"/>
+        <!--た--><path id="U305F" d="M2 0H3V1H7V2H3V4H2V7H1V9H0V7H1V4H2V2H0V1H2V0zM4 3H8V4H4V3zM4 6H5V7H4V8H8V9H4V8H3V7H4V6z"/>
+        <!--ち--><path id="U3061" d="M3 0H4V1H8V2H3V4H7V5H8V8H7V9H2V8H7V5H2V6H1V4H2V2H0V1H3V0z"/>
+        <!--つ--><path id="U3064" d="M2 1H7V2H8V3H9V7H8V8H6V9H2V8H6V7H8V3H7V2H2V3H0V2H2V1z"/>
+        <!--て--><path id="U3066" d="M0 1H9V2H6V3H5V4H4V7H5V8H8V9H5V8H4V7H3V4H4V3H5V2H0V1z"/>
+        <!--と--><path id="U3068" d="M1 0H2V2H3V3H4V2H6V1H8V2H6V3H4V4H2V5H1V7H2V8H8V9H2V8H1V7H0V5H1V4H2V2H1V0z"/>
+    </defs>
+</svg>
+<footer>
+    <a href="https://twitter.com/hookhookun" target="_blank">@hookhookun</a>
+</footer>

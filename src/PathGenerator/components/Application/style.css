@@ -1,0 +1,14 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.result {
+    width: var(--BaseWidth);
+    max-width: var(--MaxWidth);
+    min-height: 8rem;
+    margin: 1rem auto;
+    font-family: monospace;
+    word-break: break-all;
+}

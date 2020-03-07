@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "alwaysStrict": true
+    },
+    "include": [
+        "src/**/*.ts",
+        "@types/css.d.ts"
+    ]
+}
