@@ -3,6 +3,7 @@
 <meta name="viewport" content="width=device-width">
 <title>ポケダンもじもじ</title>
 <meta name="description" content="ポケダンのメッセージウインドウを再現するアプリです。">
+<link rel="icon" type="image/png" href="./favicon.png">
 <style>
 * {
     position: relative;
@@ -75,7 +76,6 @@ footer {
     padding: 2rem 0;
 }
 </style>
-<script src="./app.ts" defer></script>
 <h1>ポケダンもじもじ</h1>
 <p>このアプリは「ポケモン不思議のダンジョン 空の探検隊」を参考に作っています。</p>
 <div id="App">読み込み中です……</div>
@@ -124,7 +124,7 @@ footer {
     </svg>
     <h2>文字パスの作成</h2>
     <p>マスをクリックして編集します。</p>
-    <script id="PathGenerator" src="./PathGenerator/app.ts" defer></script>
+    <div id="PathGenerator"></div>
 </details>
 <svg style="height:0">
     <defs>
@@ -153,3 +153,5 @@ footer {
 <footer>
     <a href="https://twitter.com/hookhookun" target="_blank">@hookhookun</a>
 </footer>
+<script src="./app.ts" defer></script>
+<script src="./PathGenerator/app.ts"></script>

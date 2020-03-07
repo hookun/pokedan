@@ -52,39 +52,39 @@ const getNextDirection = (
     availableDirections: number,
 ) => {
     switch (currentDirection) {
-    case Right:
-        if (Up & availableDirections) {
-            return Up;
-        }
-        if (Down & availableDirections) {
-            return Down;
-        }
-        break;
-    case Down:
-        if (Right & availableDirections) {
-            return Right;
-        }
-        if (Left & availableDirections) {
-            return Left;
-        }
-        break;
-    case Left:
-        if (Down & availableDirections) {
-            return Down;
-        }
-        if (Up & availableDirections) {
-            return Up;
-        }
-        break;
-    case Up:
-        if (Left & availableDirections) {
-            return Left;
-        }
-        if (Right & availableDirections) {
-            return Right;
-        }
-        break;
-    default:
+        case Right:
+            if (Up & availableDirections) {
+                return Up;
+            }
+            if (Down & availableDirections) {
+                return Down;
+            }
+            break;
+        case Down:
+            if (Right & availableDirections) {
+                return Right;
+            }
+            if (Left & availableDirections) {
+                return Left;
+            }
+            break;
+        case Left:
+            if (Down & availableDirections) {
+                return Down;
+            }
+            if (Up & availableDirections) {
+                return Up;
+            }
+            break;
+        case Up:
+            if (Left & availableDirections) {
+                return Left;
+            }
+            if (Right & availableDirections) {
+                return Right;
+            }
+            break;
+        default:
     }
     return 0;
 };
@@ -104,20 +104,20 @@ const step = (
         edges.set(index, availableDirections - direction);
     }
     switch (direction) {
-    case Left:
-        index -= 1;
-        break;
-    case Right:
-        index += 1;
-        break;
-    case Down:
-        index += edgeCount;
-        break;
-    case Up:
-        index -= edgeCount;
-        break;
-    default:
-        throw new AppError('InvalidDirection', `The direction ${direction} is invalid.`);
+        case Left:
+            index -= 1;
+            break;
+        case Right:
+            index += 1;
+            break;
+        case Down:
+            index += edgeCount;
+            break;
+        case Up:
+            index -= edgeCount;
+            break;
+        default:
+            throw new AppError('InvalidDirection', `The direction ${direction} is invalid.`);
     }
     return index;
 };
@@ -139,19 +139,19 @@ export const calculatePath = (
             distance += 1;
         } else {
             switch (direction) {
-            case Right:
-                path.lineBy(distance, 0);
-                break;
-            case Left:
-                path.lineBy(-distance, 0);
-                break;
-            case Up:
-                path.lineBy(0, -distance);
-                break;
-            case Down:
-                path.lineBy(0, distance);
-                break;
-            default:
+                case Right:
+                    path.lineBy(distance, 0);
+                    break;
+                case Left:
+                    path.lineBy(-distance, 0);
+                    break;
+                case Up:
+                    path.lineBy(0, -distance);
+                    break;
+                case Down:
+                    path.lineBy(0, distance);
+                    break;
+                default:
             }
             distance = 0;
             direction = getNextDirection(direction, availableDirections);
