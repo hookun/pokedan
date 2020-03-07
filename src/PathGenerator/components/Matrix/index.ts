@@ -1,4 +1,4 @@
-import {createElement} from 'react';
+import {createElement, MouseEvent} from 'react';
 import {classnames} from '../../../util/classnames';
 import {useStyleSheet} from '../../../util/useStyleSheet';
 import {filledArray} from '../../../util/filledArray';
@@ -28,7 +28,7 @@ export const Matrix = (
             'button',
             {
                 className: classnames(className.cell, value && className.filled),
-                onClick: (event) => {
+                onClick: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
                     event.preventDefault();
                     set(index, !value);
                 },

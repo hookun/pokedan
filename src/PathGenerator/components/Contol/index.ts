@@ -1,4 +1,4 @@
-import {createElement, Dispatch, SetStateAction} from 'react';
+import {createElement, Dispatch, SetStateAction, MouseEvent} from 'react';
 import className from './style.css';
 
 export const Control = (
@@ -54,7 +54,7 @@ export const Control = (
         'button',
         {
             className: className.reset,
-            onClick: (event) => {
+            onClick: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
                 event.preventDefault();
                 reset();
             },
