@@ -31,14 +31,10 @@ export const selectCurrentMessageCharacters = createSelector(
     [selectCurrentMessageFragments],
     (fragments) => {
         const characters: Array<MessageFragment> = [];
-        const destructor = destructFragments(fragments);
-        while (1) {
-            const result = destructor.next();
-            if (result.done) {
-                return characters;
-            }
-            characters.push(result.value);
+        for (const character of destructFragments(fragments)) {
+            characters.push(character);
         }
+        return characters;
     },
 );
 export const selectCurrentMessageStartTime = createSelector(
