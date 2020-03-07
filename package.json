@@ -2,7 +2,9 @@
     "private": true,
     "license": "Apache-2.0",
     "scripts": {
-        "start": "parcel src/index.html",
+        "start": "run-s start:*",
+        "start:clear": "rm -rf dist",
+        "start:parcel": "parcel src/index.html",
         "test": "run-s test:*",
         "test:type": "tsc"
     },
