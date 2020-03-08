@@ -4,19 +4,17 @@ import * as rollup from 'rollup';
 import * as cheerio from 'cheerio';
 import {CSSProcessor} from './CSSProcessor';
 import {HTMLProcessor} from './HTMLProcessor';
-import {getHash} from './getHash';
 import {forwardSlash} from './forwardSlash';
 
 const emitCSS = (
     context: rollup.PluginContext,
     cssProcessor: CSSProcessor,
-    prefix = 'style-',
 ) => {
     const css = cssProcessor.concatenate();
     const referenceId = context.emitFile({
         type: 'asset',
         source: css,
-        fileName: `${prefix}${getHash(css, 8)}.css`,
+        name: 'app.css',
     });
     return context.getFileName(referenceId);
 };
@@ -49,7 +47,7 @@ const copyReferencedFiles = async (
     }));
 };
 
-export const myPlugin = (
+export const loadHTML = (
     props: {
         baseDir: string,
     },
@@ -57,7 +55,7 @@ export const myPlugin = (
     const cssProcessor = new CSSProcessor();
     const htmlProcessor = new HTMLProcessor();
     return {
-        name: 'MyPlugin',
+        name: 'LoadHTML',
         async load(id) {
             switch (path.extname(id)) {
                 case '.html':
@@ -68,6 +66,14 @@ export const myPlugin = (
                     return null;
             }
         },
+        outputOptions(options) {
+            return {
+                ...options,
+                assetFileNames: 'assets/[name]-[hash][extname]',
+                chunkFileNames: 'assets/[name]-[hash].js',
+                entryFileNames: 'assets/[name]-[hash].js',
+            };
+        },
         async generateBundle(_options, bundle) {
             const cssFileName = emitCSS(this, cssProcessor);
             await Promise.all(Object.values(bundle).map(async (chunk) => {
@@ -75,10 +81,9 @@ export const myPlugin = (
                     return;
                 }
                 let $ = htmlProcessor.documents.get(chunk.facadeModuleId);
-                chunk.fileName = forwardSlash(path.join(
-                    path.dirname(chunk.fileName),
-                    `${path.basename(chunk.fileName)}-${getHash(chunk.code)}.js`,
-                ));
+                if (!$) {
+                    return;
+                }
                 $ = cheerio.load($.html());
                 await copyReferencedFiles(this, $, path.dirname(chunk.facadeModuleId));
                 this.emitFile({

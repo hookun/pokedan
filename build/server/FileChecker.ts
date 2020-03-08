@@ -1,8 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import * as crypto from 'crypto';
 import * as fg from 'fast-glob';
 import {forwardSlash} from '../forwardSlash';
-import {getHash} from '../getHash';
 
 export type FileState = 'add' | 'change' | '';
 export type FileStateFilter = (
@@ -17,7 +17,7 @@ export class FileChecker {
     public readonly filter: FileStateFilter;
 
     public constructor(
-        filter: FileStateFilter = () => true,
+        filter: FileStateFilter = (state) => Boolean(state),
     ) {
         this.cache = new Map();
         this.filter = filter;
@@ -25,12 +25,14 @@ export class FileChecker {
 
     public async checkFile(file: string): Promise<FileState> {
         const previous = this.cache.get(file);
-        const hash = getHash(await fs.promises.readFile(file));
-        this.cache.set(file, hash);
+        const hash = crypto.createHash('sha256');
+        hash.update(await fs.promises.readFile(file));
+        const hashString = hash.digest('base64');
+        this.cache.set(file, hashString);
         if (!previous) {
             return 'add';
         }
-        if (previous !== hash) {
+        if (previous !== hashString) {
             return 'change';
         }
         return '';

@@ -39,7 +39,7 @@ export class ClientList {
 
     public broadcast(data: string) {
         for (const connection of this.connections) {
-            connection.write(`${data}\n\n`);
+            connection.write(data);
         }
     }
 
@@ -48,7 +48,7 @@ export class ClientList {
     }
 
     private keepAlive() {
-        this.broadcast(': keepalive');
+        this.broadcast(': keepalive\n\n');
     }
 
     private startTimer() {

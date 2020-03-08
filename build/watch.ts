@@ -21,7 +21,7 @@ export const watch = async (
         };
         watcher.on('event', onEvent);
     });
-    const fileChecker = new FileChecker((state) => state === 'change');
+    const fileChecker = new FileChecker();
     const dest = outputOptions.dir;
     const [{clientList}] = await Promise.all([
         startServer(dest),
@@ -36,7 +36,8 @@ export const watch = async (
             .then((list) => {
                 for (const [file, state] of list) {
                     console.log(`${state}: ${file}`);
-                    clientList.broadcast(`data: ${forwardSlash(path.relative(dest, file))}`);
+                    clientList.broadcast(`event: ${state}\n`);
+                    clientList.broadcast(`data: ${forwardSlash(path.relative(dest, file))}\n\n`);
                 }
             })
             .catch((error) => console.error(error));

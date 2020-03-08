@@ -2,8 +2,9 @@ import * as path from 'path';
 import * as rollup from 'rollup';
 import * as fg from 'fast-glob';
 import {sucrase, nodeResolve, commonjs, replace, terser} from './plugins';
+import {loadHTML} from './loadHTML';
+import {removeSourceMapReference} from './removeSourceMapReference';
 import {remove} from './remove';
-import {myPlugin} from './myPlugin';
 import {forwardSlash} from './forwardSlash';
 import {watch} from './watch';
 
@@ -18,7 +19,10 @@ export const build = async (
         input,
         plugins: [
             replace(options.watch),
-            myPlugin({baseDir: srcDirectory}),
+            loadHTML({baseDir: srcDirectory}),
+            removeSourceMapReference({
+                include: ['**/node_modules/typesafe-actions/**'],
+            }),
             nodeResolve(),
             commonjs(),
             sucrase(),
