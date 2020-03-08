@@ -1,0 +1,36 @@
+:root {
+    --Cyan: #099399;
+    --Orange: #E75421;
+    --Green: #3E9753;
+    --White: #EFEFF5;
+    --Black: #1a1d10;
+    --WindowColor: #3a2828;
+    --BaseWidth: 92vw;
+    --MaxWidth: 600px;
+}
+
+h1, h2, p, summary {
+    width: var(--BaseWidth);
+    max-width: var(--MaxWidth);
+}
+
+summary {
+    margin: 1rem auto;
+}
+
+svg[title="Preview"] {
+    width: var(--BaseWidth);
+    max-width: var(--MaxWidth);
+    margin: 1rem auto;
+    background-color: var(--WindowColor);
+    fill: var(--White);
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto 0 auto;
+    padding: 2rem 0;
+}

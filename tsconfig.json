@@ -1,13 +1,10 @@
 {
     "compilerOptions": {
         "target": "ESNext",
-        "moduleResolution": "Node",
-        "noEmit": true,
-        "noImplicitAny": true,
-        "alwaysStrict": true
+        "moduleResolution": "Node"
     },
     "include": [
         "src/**/*.ts",
-        "@types/css.d.ts"
+        "node_modules/@hookun/builder/@types/css.d.ts"
     ]
 }
