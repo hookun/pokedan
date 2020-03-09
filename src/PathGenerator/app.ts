@@ -1,8 +1,8 @@
 import {createElement} from 'react';
 import {render} from 'react-dom';
 import {AppError} from '../util/AppError';
-import {Application} from './components/Application';
 import className from './components/Application/style.css';
+import {RootComponent} from './core';
 
 const targetElement = document.querySelector('#PathGenerator');
 if (!targetElement) {
@@ -11,4 +11,4 @@ if (!targetElement) {
 const appElement = document.createElement('div');
 appElement.classList.add(className.app);
 targetElement.replaceWith(appElement);
-render(createElement(Application), appElement);
+render(createElement(RootComponent), appElement);

@@ -1,64 +1,33 @@
-import {createElement, Dispatch, SetStateAction, MouseEvent} from 'react';
+import {createElement, MouseEvent} from 'react';
 import className from './style.css';
+import {InputSize} from '../InputSize';
+import {
+    selectWidth,
+    SetWidth,
+    selectHeight,
+    SetHeight,
+    useDispatch,
+    ClearMatrix,
+} from '../../core';
 
-export const Control = (
-    {
-        width,
-        height,
-        setSize,
-        reset,
-        minWidth = 9,
-        maxWidth = 255,
-        minHeight = 9,
-        maxHeight = 255,
-    }: {
-        width: number,
-        height: number,
-        setSize: Dispatch<SetStateAction<[number, number]>>,
-        reset: () => void,
-        minWidth?: number,
-        maxWidth?: number,
-        minHeight?: number,
-        maxHeight?: number,
-    },
-) => createElement(
-    'div',
-    null,
-    createElement(
-        'input',
-        {
-            type: 'number',
-            min: minWidth,
-            max: maxWidth,
-            defaultValue: width,
-            onChange: (event) => {
-                event.preventDefault();
-                setSize([Number(event.target.value), height]);
+export const Control = () => {
+    const dispatch = useDispatch();
+    return createElement(
+        'div',
+        null,
+        createElement(InputSize, {label: '横', selector: selectWidth, action: SetWidth}),
+        'x',
+        createElement(InputSize, {label: '縦', selector: selectHeight, action: SetHeight}),
+        createElement(
+            'button',
+            {
+                className: className.reset,
+                onClick: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
+                    event.preventDefault();
+                    dispatch(ClearMatrix());
+                },
             },
-        },
-    ),
-    createElement(
-        'input',
-        {
-            type: 'number',
-            min: minHeight,
-            max: maxHeight,
-            defaultValue: height,
-            onChange: (event) => {
-                event.preventDefault();
-                setSize([width, Number(event.target.value)]);
-            },
-        },
-    ),
-    createElement(
-        'button',
-        {
-            className: className.reset,
-            onClick: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
-                event.preventDefault();
-                reset();
-            },
-        },
-        '全て消す',
-    ),
-);
+            '全て消す',
+        ),
+    );
+};

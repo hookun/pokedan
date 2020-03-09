@@ -2,18 +2,25 @@ import {createElement, MouseEvent} from 'react';
 import {classnames} from '../../../util/classnames';
 import {useStyleSheet} from '../../../util/useStyleSheet';
 import {filledArray} from '../../../util/filledArray';
+import {
+    useSelector,
+    selectWidth,
+    selectHeight,
+    selectDotRadius,
+    selectMatrix,
+    useDispatch,
+    SetCell,
+    selectD,
+} from '../../core';
 import className from './style.css';
 
-export const Matrix = (
-    {matrix, width, height, dotRadius, d, set}: {
-        matrix: Array<boolean>,
-        width: number,
-        height: number,
-        dotRadius: number,
-        d: string,
-        set: (index: number, state: boolean) => void,
-    },
-) => {
+export const Matrix = () => {
+    const width = useSelector(selectWidth);
+    const height = useSelector(selectHeight);
+    const dotRadius = useSelector(selectDotRadius);
+    const matrix = useSelector(selectMatrix);
+    const d = useSelector(selectD);
+    const dispatch = useDispatch();
     useStyleSheet([
         `.${className.table}{${[
             `grid-template-columns:${filledArray(width, 'var(--Size)').join(' ')}`,
@@ -30,7 +37,7 @@ export const Matrix = (
                 className: classnames(className.cell, value && className.filled),
                 onClick: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => {
                     event.preventDefault();
-                    set(index, !value);
+                    dispatch(SetCell(index, !value));
                 },
             }
         )),
