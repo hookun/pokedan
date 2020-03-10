@@ -1,0 +1,13 @@
+.result {
+    margin: 1rem var(--Margin);
+    font-family: monospace;
+    word-break: break-all;
+}
+
+.result[title]::before {
+    content: attr(title);
+    display: block;
+    font-size: 80%;
+    opacity: 0.6;
+    line-height: 1.5;
+}

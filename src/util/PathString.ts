@@ -4,11 +4,14 @@ export class PathString {
 
     public y: number;
 
+    public length: number;
+
     public fragments: Array<string>;
 
     public constructor() {
         this.x = 0;
         this.y = 0;
+        this.length = 0;
         this.fragments = [];
     }
 
@@ -21,6 +24,7 @@ export class PathString {
     public lineBy(dx: number, dy: number) {
         this.x += dx;
         this.y += dy;
+        this.length += Math.hypot(dx, dy);
         if (dx !== 0 || dy !== 0) {
             let fragment = '';
             if (dx === 0) {

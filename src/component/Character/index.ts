@@ -10,7 +10,7 @@ export const Character = (
 ) => createElement(
     'use',
     {
-        href: `#U${props.text.codePointAt(0).toString(16)}`,
+        href: `#U${props.text.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}`,
         x: (props.x + 1) * 10,
         y: 10,
         fill: `${props.color}`.toLowerCase(),

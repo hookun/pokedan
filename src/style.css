@@ -5,13 +5,14 @@
     --White: #EFEFF5;
     --Black: #1a1d10;
     --WindowColor: #3a2828;
-    --BaseWidth: 92vw;
-    --MaxWidth: 600px;
 }
 
 h1, h2, p, summary {
     width: var(--BaseWidth);
-    max-width: var(--MaxWidth);
+}
+
+p {
+    line-height: 1.5;
 }
 
 summary {
@@ -20,7 +21,6 @@ summary {
 
 svg[title="Preview"] {
     width: var(--BaseWidth);
-    max-width: var(--MaxWidth);
     margin: 1rem auto;
     background-color: var(--WindowColor);
     fill: var(--White);

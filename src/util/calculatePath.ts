@@ -125,7 +125,7 @@ const step = (
 export const calculatePath = (
     matrix: Array<boolean>,
     columnCount: number,
-): string => {
+): PathString => {
     const edges = getEdges(matrix, columnCount);
     const path = new PathString();
     const edgeCount = columnCount + 1;
@@ -168,5 +168,5 @@ export const calculatePath = (
             }
         }
     }
-    return path.toString();
+    return path;
 };

@@ -1,0 +1,19 @@
+.form {
+    --Height: 2rem;
+    display: flex;
+    align-items: stretch;
+    margin: 1rem var(--Margin);
+    border: 1px solid currentColor;
+    border-radius: calc(var(--Height) / 2);
+    overflow: hidden;
+}
+
+.form>input {
+    flex-grow: 1;
+    padding-left: 1rem;
+}
+
+.form>button {
+    padding: 0.45rem 1rem 0.55rem 0.8rem;
+    border-left: 1px solid currentColor;
+}
