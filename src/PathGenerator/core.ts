@@ -38,6 +38,7 @@ export const createInitialState = async (): Promise<PathGeneratorState> => {
         character,
         cellNumber: false,
         pathDirection,
+        exportType: 'JSON (Matrix)',
     };
 };
 

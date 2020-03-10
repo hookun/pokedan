@@ -1,4 +1,5 @@
 export type CharacterPage = 'かな' | 'が' | 'ぱ' | 'カナ' | 'ガ' | 'パ' | 'ABC';
+export type ExportType = 'SVG' | 'JSON (Path)' | 'JSON (Matrix)' | 'JS (Path)' | 'JS (Matrix)';
 
 export interface PathGeneratorState {
     arrowSize: number,
@@ -11,4 +12,5 @@ export interface PathGeneratorState {
     character: string,
     cellNumber: boolean,
     pathDirection: boolean,
+    exportType: ExportType,
 }

@@ -1,5 +1,5 @@
 import {createAction, ActionType} from 'typesafe-actions';
-import {CharacterPage} from './type';
+import {CharacterPage, ExportType} from './type';
 
 export const SetWidth = createAction('SetWidth')<number>();
 export const SetHeight = createAction('SetHeight')<number>();
@@ -10,6 +10,7 @@ export const SetCharacter = createAction('SetCharacter')<string>();
 export const LoadMatrixData = createAction('LoadMatrixData')<string>();
 export const SetCellNumber = createAction('SetCellNumber')<boolean>();
 export const SetPathDirection = createAction('SetPathDirection')<boolean>();
+export const SetExportType = createAction('SetExportType')<ExportType>();
 
 type PathGeneratorActionCreators =
 | typeof SetWidth
@@ -20,6 +21,7 @@ type PathGeneratorActionCreators =
 | typeof SetCharacter
 | typeof LoadMatrixData
 | typeof SetCellNumber
-| typeof SetPathDirection;
+| typeof SetPathDirection
+| typeof SetExportType;
 
 export type PathGeneratorAction = ActionType<PathGeneratorActionCreators>;

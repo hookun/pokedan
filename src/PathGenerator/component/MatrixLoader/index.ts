@@ -1,10 +1,12 @@
 import {createElement, FormEvent} from 'react';
-import {useDispatch} from '../../core';
+import {useDispatch, useSelector} from '../../core';
 import {LoadMatrixData} from '../../action';
 import className from './style.css';
+import {selectMatrixData} from '../../selector';
 
 export const MetrixLoader = () => {
     const dispatch = useDispatch();
+    const matrixData = useSelector(selectMatrixData);
     return createElement(
         'form',
         {
@@ -23,7 +25,7 @@ export const MetrixLoader = () => {
             {
                 name: 'matrixData',
                 type: 'text',
-                placeholder: '9x9|91YplhCcxBJihE',
+                placeholder: matrixData,
             },
         ),
         createElement(

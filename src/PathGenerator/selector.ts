@@ -50,10 +50,13 @@ export const selectEditableCharacters = createSelector(
         for (const lines of Object.values(pages)) {
             for (const line of lines) {
                 for (const character of line) {
-                    set.add(character);
+                    if (character.trim()) {
+                        set.add(character);
+                    }
                 }
             }
         }
         return set;
     },
 );
+export const selectExportType = (state: PathGeneratorState) => state.exportType;

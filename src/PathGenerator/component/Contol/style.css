@@ -1,5 +1,6 @@
 .container {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: flex-start;
     margin: 1rem var(--Margin);
@@ -14,10 +15,16 @@
 }
 
 .options {
-    flex-grow: 1;
     display: grid;
     grid-template-columns: 1fr;
-    row-gap: 0.5rem;
+}
+
+.options>* {
+    height: 1.4rem;
+}
+
+.select>option {
+    color: var(--Black);
 }
 
 .reset {

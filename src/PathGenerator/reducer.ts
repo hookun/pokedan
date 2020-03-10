@@ -14,6 +14,7 @@ import {
     LoadMatrixData,
     SetCellNumber,
     SetPathDirection,
+    SetExportType,
 } from './action';
 import {pages} from './constants';
 
@@ -79,7 +80,8 @@ const reducer = createReducer<PathGeneratorState, PathGeneratorAction>(null)
 })
 .handleAction(LoadMatrixData, (state, {payload}) => ({...state, ...decodeMatrix(payload)}))
 .handleAction(SetCellNumber, (state, {payload: cellNumber}) => ({...state, cellNumber}))
-.handleAction(SetPathDirection, (state, {payload: pathDirection}) => ({...state, pathDirection}));
+.handleAction(SetPathDirection, (state, {payload: pathDirection}) => ({...state, pathDirection}))
+.handleAction(SetExportType, (state, {payload: exportType}) => ({...state, exportType}));
 
 export const applyConsumers = <State, Action>(
     reducer: Reducer<State, Action>,
