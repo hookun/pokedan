@@ -1,8 +1,13 @@
 import {createSelector} from 'reselect';
-import {selectMessageList, selectStartTimeList} from './MessageList/selector';
+import {
+    selectMessageList,
+    selectStartTimeList,
+    selectMessageMap,
+} from './Message/selector';
 import {selectPlayerCurrentTime} from './Player/selector';
 import {destructFragments} from '../util/destructFragments';
 import {MessageFragment} from '../types';
+import {generateMessageId} from '../util/generateMessageId';
 
 export const selectCurrentMessageIndex = createSelector(
     [selectStartTimeList, selectPlayerCurrentTime],
@@ -15,9 +20,17 @@ export const selectCurrentMessageIndex = createSelector(
         return 0;
     },
 );
-export const selectCurrentMessage = createSelector(
+export const selectCurrentMessageId = createSelector(
     [selectMessageList, selectCurrentMessageIndex],
-    (messageList, index) => messageList[index],
+    (list, index) => list[index],
+);
+export const selectCurrentMessage = createSelector(
+    [selectCurrentMessageId, selectMessageMap],
+    (id, map) => map.get(id) || {
+        id: generateMessageId(),
+        duration: 0,
+        fragments: [],
+    },
 );
 export const selectCurrentMessageDuration = createSelector(
     [selectCurrentMessage],

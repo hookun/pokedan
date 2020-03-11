@@ -1,6 +1,0 @@
-.app {
-    --Margin: calc(var(--BaseWidth) * 0.03);
-    width: var(--BaseWidth);
-    margin: 1rem auto;
-    border: 1px solid currentColor;
-}

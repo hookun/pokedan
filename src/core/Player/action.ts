@@ -1,11 +1,9 @@
 import {createAction} from 'typesafe-actions';
-import {createTypeFilter} from '../../util/createTypeFilter';
-import {isFrameType} from '../../is/FrameType';
-import {isFrameColor} from '../../is/FrameColor';
+import {FrameType, FrameColor} from '../../types';
 
-export const setFrameType = createAction('setFrameType', createTypeFilter(isFrameType))();
+export const setFrameType = createAction('setFrameType')<FrameType>();
 
-export const setFrameColor = createAction('setFrameColor', createTypeFilter(isFrameColor))();
+export const setFrameColor = createAction('setFrameColor')<FrameColor>();
 
 export const start = createAction('start')();
 

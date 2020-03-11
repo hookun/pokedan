@@ -8,6 +8,7 @@ export interface TypeFilter<Type> {
 }
 
 export type Nominal<Type, Name extends string> = Type & {__name: Name}
+export type MessageId = Nominal<string, 'MessageId'>;
 export type FrameColor = Nominal<string, 'FrameColor'>;
 export type FrameType = Nominal<number, 'FrameType'>;
 export type TextColor = Nominal<number, 'TextColor'>;
@@ -16,6 +17,7 @@ export interface MessageFragment {
     color: TextColor,
 }
 export interface Message {
+    id: MessageId,
     fragments: Array<MessageFragment>,
     duration: number,
 };
