@@ -1,19 +1,16 @@
 import {createElement} from 'react';
 import {useSelector} from 'react-redux';
-import {selectCurrentMessageCharacters} from '../../core/selector';
-import {selectPlayerShadowFilterId} from '../../core/Player/selector';
-import {Character} from '../Character';
+import {selectCurrentMessageFragments} from '../../core/selector';
+import {Type} from '../Type';
 
 export const MessageWindow = () => {
-    const characters = useSelector(selectCurrentMessageCharacters);
-    const id = useSelector(selectPlayerShadowFilterId);
+    const fragments = useSelector(selectCurrentMessageFragments);
     return createElement(
         'g',
         null,
-        createElement(
-            'g',
-            {filter: `url(#${id})`},
-            ...characters.map((fragment, x) => createElement(Character, {...fragment, x})),
-        ),
+        createElement(Type, {
+            fragments,
+            feed: [10, 13],
+        }),
     );
 };

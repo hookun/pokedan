@@ -1,0 +1,6 @@
+.container {
+    width: var(--BaseWidth);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem 0;
+}

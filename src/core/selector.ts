@@ -5,8 +5,6 @@ import {
     selectMessageMap,
 } from './Message/selector';
 import {selectPlayerCurrentTime} from './Player/selector';
-import {destructFragments} from '../util/destructFragments';
-import {MessageFragment} from '../types';
 import {generateMessageId} from '../util/generateMessageId';
 
 export const selectCurrentMessageIndex = createSelector(
@@ -39,16 +37,6 @@ export const selectCurrentMessageDuration = createSelector(
 export const selectCurrentMessageFragments = createSelector(
     [selectCurrentMessage],
     (message) => message.fragments,
-);
-export const selectCurrentMessageCharacters = createSelector(
-    [selectCurrentMessageFragments],
-    (fragments) => {
-        const characters: Array<MessageFragment> = [];
-        for (const character of destructFragments(fragments)) {
-            characters.push(character);
-        }
-        return characters;
-    },
 );
 export const selectCurrentMessageStartTime = createSelector(
     [selectStartTimeList, selectCurrentMessageIndex],

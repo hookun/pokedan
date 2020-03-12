@@ -5,6 +5,8 @@
     --White: #EFEFF5;
     --Black: #1a1d10;
     --WindowColor: #3a2828;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
 }
 
 h1, h2, p, summary {

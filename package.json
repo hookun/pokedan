@@ -32,7 +32,8 @@
             "ts"
         ],
         "require": [
-            "ts-node/register"
+            "ts-node/register",
+            "./node-shim.js"
         ]
     }
 }

@@ -1,3 +1,11 @@
 .container {
-    white-space: pre;
+    background-image: linear-gradient(0deg, var(--Orange), var(--Orange));
+    background-size: 100% 0;
+    background-position: bottom;
+    transition: background-size 0.2s;
+}
+
+.current {
+    background-position: top;
+    background-size: 100% 100%;
 }
