@@ -9,7 +9,7 @@
     row-gap: var(--Gap);
     justify-content: center;
     padding: var(--Gap);
-    margin: 2rem auto;
+    margin: 1rem auto;
     background-color: var(--BackgroundColor);
     box-shadow: 0 0 1px var(--ForegroundColor);
 }

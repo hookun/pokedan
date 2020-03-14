@@ -69,3 +69,4 @@ export const DefaultX = 8;
 export const DefaultY = 130;
 export const DefaultMessageSpeed = 2;
 export const DefaultFeed: [number, number] = [10, 13];
+export const DBName = 'Pokedan';

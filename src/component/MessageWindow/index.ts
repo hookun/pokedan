@@ -15,10 +15,10 @@ export const MessageWindow = ({id}: {id: MessageId}) => {
     const filterId = useMemo(() => generateId(), [message.frameColor]);
     const feed = DefaultFeed;
     const {width, height, left, top} = useMessageMetrics(message, feed);
-    const currentFrame = useSelector(selectPlayerCurrentFrame);
+    const frame = useSelector(selectPlayerCurrentFrame);
     const length = useMemo(() => {
-        return Math.floor(Math.max(0, (currentFrame - message.start) / message.speed));
-    }, [message, currentFrame]);
+        return Math.floor(Math.max(0, (frame - message.start) / message.speed));
+    }, [message, frame]);
     return createElement(
         'g',
         {transform: `translate(${left}, ${top})`},

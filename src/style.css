@@ -15,6 +15,10 @@ h1, h2, p, summary {
     width: var(--BaseWidth);
 }
 
+h1, h2 {
+    margin-bottom: 1rem;
+}
+
 p {
     line-height: 1.5;
 }

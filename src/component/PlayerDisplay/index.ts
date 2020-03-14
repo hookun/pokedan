@@ -12,7 +12,7 @@ import {ShadowFilter} from '../ShadowFilter';
 import {selectCurrentMessageIdList} from '../../core/selector';
 import {selectMessageListDuration} from '../../core/Message/selector';
 import className from './style.css';
-import {updatePlayer} from '../../core/Player/action';
+import {updatePlayer, setFrame} from '../../core/Player/action';
 import {classnames} from '../../util/classnames';
 
 export const PlayerDisplay = () => {
@@ -26,8 +26,8 @@ export const PlayerDisplay = () => {
     const duration = useSelector(selectMessageListDuration);
     const onChangeFrame = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
-            const currentFrame = Number(event.currentTarget.value);
-            dispatch(updatePlayer({currentFrame}));
+            const frame = Number(event.currentTarget.value);
+            dispatch(setFrame(frame));
         },
         [dispatch],
     );
@@ -68,16 +68,13 @@ export const PlayerDisplay = () => {
                     min: 0,
                     max: duration,
                     step: 1,
-                    value: player.currentFrame,
-                    onChange: (event) => {
-                        const currentFrame = Number(event.currentTarget.value);
-                        dispatch(updatePlayer({currentFrame}));
-                    },
+                    value: player.frame,
+                    onChange: onChangeFrame,
                     style: {width: `${digits.frame.toFixed(1)}rem`},
                 },
             ),
             `/${duration} `,
-            (player.currentFrame / 60).toFixed(1).padStart(digits.sec, ' '),
+            (player.frame / 60).toFixed(1).padStart(digits.sec, ' '),
             's ',
             createElement(
                 'svg',
@@ -107,7 +104,7 @@ export const PlayerDisplay = () => {
                 min: 0,
                 max: duration,
                 step: 1,
-                value: player.currentFrame,
+                value: player.frame,
                 onChange: onChangeFrame,
             },
         ),

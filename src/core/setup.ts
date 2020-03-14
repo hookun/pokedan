@@ -6,6 +6,7 @@ import {reducer as MessageReducer} from './Message/reducer';
 import {list as listMessageSagas} from './Message/saga';
 import {reducer as PlayerReducer} from './Player/reducer';
 import {list as listPlayerSagas} from './Player/saga';
+import {list as storageSagas} from './storageSaga';
 
 export const setup = () => {
     const sagaMiddleware = createSagaMiddleware();
@@ -18,6 +19,7 @@ export const setup = () => {
     );
     sagaMiddleware.run((function* () {
         yield all([
+            ...storageSagas(),
             ...listMessageSagas(),
             ...listPlayerSagas(),
         ]);

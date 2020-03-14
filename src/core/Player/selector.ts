@@ -11,6 +11,10 @@ export const selectPlayerShadowFilterId = createSelector(
     [selectPlayerId],
     (id) => `${id}-Shadow`,
 );
+export const selectPlayerFile = createSelector(
+    [selectPlayer],
+    (player) => player.file,
+);
 export const selectPlayerFrameType = createSelector(
     [selectPlayer],
     (player) => player.frameType,
@@ -46,7 +50,7 @@ export const selectDisplayStyle = createSelector(
 );
 export const selectPlayerCurrentFrame = createSelector(
     [selectPlayer],
-    (player) => player.currentFrame,
+    (player) => player.frame,
 );
 export const selectPlayerPaused = createSelector(
     [selectPlayer],

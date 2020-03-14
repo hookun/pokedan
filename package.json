@@ -6,7 +6,7 @@
         "start": "build-page --watch",
         "build": "build-page",
         "test": "run-s test:*",
-        "test:type": "tsc",
+        "test:type": "tsc --noEmit",
         "test:unit": "ava"
     },
     "devDependencies": {
