@@ -33,9 +33,9 @@ export const reducer = createReducer<MessageState, ActionType<SupportedActions>>
 )
 .handleAction(
     updateMessage,
-    (state, {payload: message}) => {
+    (state, {payload: patch}) => {
         const map = new Map(state.map);
-        map.set(message.id, message);
+        map.set(patch.id, {...map.get(patch.id), ...patch});
         return {...state, map};
     },
 )

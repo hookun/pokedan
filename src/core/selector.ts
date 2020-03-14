@@ -5,7 +5,8 @@ import {
     selectMessageMap,
 } from './Message/selector';
 import {selectPlayerCurrentTime} from './Player/selector';
-import {generateMessageId} from '../util/generateMessageId';
+import {generateId} from '../util/generateId';
+import {MessageId} from '../types';
 
 export const selectCurrentMessageIndex = createSelector(
     [selectStartTimeList, selectPlayerCurrentTime],
@@ -25,7 +26,7 @@ export const selectCurrentMessageId = createSelector(
 export const selectCurrentMessage = createSelector(
     [selectCurrentMessageId, selectMessageMap],
     (id, map) => map.get(id) || {
-        id: generateMessageId(),
+        id: generateId<MessageId>(),
         duration: 0,
         fragments: [],
     },

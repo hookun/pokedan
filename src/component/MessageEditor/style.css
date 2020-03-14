@@ -1,11 +1,62 @@
 .container {
+    --Gap: calc(var(--BaseWidth) * 0.01);
+    --SmallFontSize: 0.8rem;
+    --ColumnWidth: calc(var(--BaseWidth) / 2 - var(--Gap));
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(2, var(--ColumnWidth));
+    grid-template-rows:
+        minmax(min-content, max-content)
+        calc(var(--Gap) + var(--SmallFontSize))
+        minmax(min-content, max-content)
+        minmax(min-content, max-content);
+    column-gap: calc(var(--Gap) * 2);
+    row-gap: var(--Gap);
+    justify-content: center;
+    align-items: end;
+    padding: 2rem 0;
     background-image: linear-gradient(0deg, var(--Orange), var(--Orange));
-    background-size: 100% 0;
-    background-position: bottom;
+    background-size: var(--Gap) 0;
+    background-position-x: left;
+    background-position-y: bottom;
     transition: background-size 0.2s;
+    overflow: hidden;
+}
+
+.container:first-child {
+    margin-top: -2rem;
 }
 
 .current {
-    background-position: top;
-    background-size: 100% 100%;
+    background-position-y: top;
+    background-size: var(--Gap) 100%;
+}
+
+.conatiner {
+    width: var(--BaseWidth);
+    padding: calc(var(--Gap) * 2);
+    margin: 0 auto;
+    border-radius: calc(var(--BaseWidth) * 0.01);
+    background-color: var(--BackgroundColor);
+}
+
+.container>svg {
+    width: 100%;
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+}
+
+.text {
+    --LineHeight: calc(1rem + var(--Gap));
+    grid-column: 1 / 3;
+    grid-row: 4 / 5;
+    white-space: pre;
+    min-height: calc(var(--LineHeight) + var(--Gap) * 2);
+    padding: var(--Gap);
+    line-height: var(--LineHeight);
+    font-family: monospace;
+    font-weight: bolder;
+    background-color: rgb(37,37,37);
+    color: rgb(210,210,210);
+    border-radius: 0.2rem;
 }

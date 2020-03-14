@@ -1,9 +1,9 @@
 import {createAction} from 'typesafe-actions';
-import {FrameType, FrameColor} from '../../types';
+import {FrameType} from '../../types';
 
 export const setFrameType = createAction('setFrameType')<FrameType>();
 
-export const setFrameColor = createAction('setFrameColor')<FrameColor>();
+export const setFrameColor = createAction('setFrameColor')<number>();
 
 export const start = createAction('start')();
 

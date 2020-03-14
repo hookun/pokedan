@@ -1,7 +1,7 @@
 import {createReducer, ActionType} from 'typesafe-actions';
 import {setFrameColor, setFrameType} from './action';
-import {FrameType, FrameColor} from '../../types';
-import {DefaultFrameType, DefaultFrameColor} from '../../constants';
+import {FrameType} from '../../types';
+import {DefaultFrameType} from '../../constants';
 
 type SupportedActions =
 | typeof setFrameColor
@@ -15,7 +15,7 @@ export interface Player {
     padding: number,
     backgroundColor: [number, number, number],
     frame: {
-        color: FrameColor,
+        color: number,
         type: FrameType,
     },
 }
@@ -28,7 +28,7 @@ export const reducer = createReducer<Player, ActionType<SupportedActions>>({
     padding: 32,
     backgroundColor: [0, 0, 255],
     frame: {
-        color: DefaultFrameColor,
+        color: 120,
         type: DefaultFrameType,
     },
 })

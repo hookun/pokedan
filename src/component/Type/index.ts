@@ -1,7 +1,7 @@
 import {createElement, SVGProps} from 'react';
+import {useSelector} from 'react-redux';
 import {MessageFragment} from '../../types';
 import {useFragmentPrinter} from '../../use/FragmentPrinter';
-import {useSelector} from 'react-redux';
 import {selectPlayerShadowFilterId} from '../../core/Player/selector';
 
 export const Type = (

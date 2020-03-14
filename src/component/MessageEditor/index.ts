@@ -1,10 +1,12 @@
 import {createElement} from 'react';
+import {classnames} from '../../util/classnames';
 import {MessageId} from '../../types';
-import className from './style.css';
 import {MessagePreview} from '../MessagePreview';
 import {useSelector} from 'react-redux';
 import {selectCurrentMessageId} from '../../core/selector';
-import {classnames} from '../../util/classnames';
+import {MessageControl} from '../MessageControl';
+import className from './style.css';
+import {MessageTextEditor} from '../MessageTextEditor';
 
 export const MessageEditor = ({id}: {id: MessageId}) => {
     const currentMessageId = useSelector(selectCurrentMessageId);
@@ -17,5 +19,10 @@ export const MessageEditor = ({id}: {id: MessageId}) => {
             ),
         },
         createElement(MessagePreview, {id}),
+        createElement(MessageControl, {id}),
+        createElement(MessageTextEditor, {
+            id,
+            className: className.text,
+        }),
     );
 };

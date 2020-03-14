@@ -1,70 +1,84 @@
 import {put} from 'redux-saga/effects';
 import {insertMessage} from '../action';
-import {TextColor} from '../../../types';
-import {generateMessageId} from '../../../util/generateMessageId';
-import {DefaultTextColor, FrameColorBlue} from '../../../constants';
+import {MessageId} from '../../../types';
+import {generateId} from '../../../util/generateId';
+import {textColors} from '../../../constants';
 
 export const onRestart = function* () {
     yield put(insertMessage({
         index: 0,
         message: {
-            id: generateMessageId(),
+            id: generateId<MessageId>(),
             fragments: [
                 {
                     text: 'ピカチュウ',
-                    color: 'Yellow' as unknown as TextColor,
+                    color: textColors[2],
                 },
                 {
                     text: '「ここは てんきがいいと\n いつも ',
-                    color: DefaultTextColor,
+                    color: textColors[0],
                 },
                 {
                     text: 'クラブ',
-                    color: 'Blue' as unknown as TextColor,
+                    color: textColors[1],
                 },
                 {
                     text: 'たちが ゆうがたに\n あわを ふくんだけど……',
-                    color: DefaultTextColor,
+                    color: textColors[0],
                 },
             ],
             duration: 5000,
-            frameColor: FrameColorBlue,
+            frameColor: 0,
         },
     }));
     yield put(insertMessage({
         index: 1,
         message: {
-            id: generateMessageId(),
+            id: generateId<MessageId>(),
             fragments: [
                 {
                     text: 'ピカチュウ',
-                    color: 'Yellow' as unknown as TextColor,
+                    color: textColors[2],
                 },
                 {
                     text: '「ゆうひの うみに\n たくさんの あわが かさなって……',
-                    color: DefaultTextColor,
+                    color: textColors[0],
                 },
             ],
             duration: 5000,
-            frameColor: FrameColorBlue,
+            frameColor: 120,
         },
     }));
     yield put(insertMessage({
         index: 2,
         message: {
-            id: generateMessageId(),
+            id: generateId<MessageId>(),
             fragments: [
                 {
                     text: 'ピカチュウ',
-                    color: 'Yellow' as unknown as TextColor,
+                    color: textColors[2],
                 },
                 {
                     text: '「ホント いつみても\n きれいだよなあ。',
-                    color: DefaultTextColor,
+                    color: textColors[0],
                 },
             ],
             duration: 5000,
-            frameColor: FrameColorBlue,
+            frameColor: 240,
+        },
+    }));
+    yield put(insertMessage({
+        index: 3,
+        message: {
+            id: generateId<MessageId>(),
+            fragments: [
+                {
+                    text: '（……でも　どうしてだろう？\n　なにも　おもいだせない……。）',
+                    color: textColors[0],
+                },
+            ],
+            duration: 5000,
+            frameColor: 240,
         },
     }));
 };

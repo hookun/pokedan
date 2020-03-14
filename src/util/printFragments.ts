@@ -5,6 +5,7 @@ export const printFragments = function* (
     fragments: Array<MessageFragment>,
     [characterfeed, lineFeed]: [number, number],
 ): Generator<Printee> {
+    let previousCharacter = '';
     let x = 0;
     let y = 0;
     for (const {text: character, color} of destructFragments(fragments)) {
@@ -19,8 +20,28 @@ export const printFragments = function* (
                 x += characterfeed / 2;
                 break;
             default:
+                switch (`${previousCharacter}${character}`) {
+                    case '（':
+                        x -= 2;
+                        break;
+                    case '……':
+                        x -= 1;
+                        break;
+                    default:
+                }
                 yield {character, color, x, y};
-                x += characterfeed;
+                switch (character) {
+                    case '（':
+                        x += characterfeed - 2;
+                        break;
+                    case '。':
+                    case '、':
+                        x += characterfeed - 4;
+                        break;
+                    default:
+                        x += characterfeed;
+                }
         }
+        previousCharacter = character;
     }
 };

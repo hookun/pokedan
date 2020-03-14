@@ -1,6 +1,5 @@
 import {createElement, Fragment} from 'react';
 import {useFrame} from '../../use/Frame';
-import {FrameType} from '../../types';
 import {useSelector} from 'react-redux';
 import {selectPlayerFrameType} from '../../core/Player/selector';
 
@@ -70,9 +69,10 @@ export const RightFrame = (
 );
 
 export const Frame = (
-    {width, height}: {
+    {width, height, filter}: {
         width: number,
         height: number,
+        filter: string,
     },
 ) => {
     const frameType = useSelector(selectPlayerFrameType);
@@ -82,14 +82,14 @@ export const Frame = (
     const x = TopRight.width - 1;
     const y = TopRight.height - 1;
     return createElement(
-        Fragment,
-        null,
+        'g',
+        {filter: `url(#${filter})`},
         createElement('rect', {
             x: TopRight.width - 2,
             y: TopRight.height - 2,
             width: hBarWidth + 2,
             height: vBarHeight + 2,
-            fill: 'rgb(35,35,35)',
+            fill: 'rgb(37,37,37)',
         }),
         createElement(TopFrame, {x, y: 0, width: hBarWidth}),
         createElement(BottomFrame, {x, y: height - 5, width: hBarWidth}),
