@@ -5,19 +5,23 @@ import {
     selectPlayerShadowFilterId,
     selectPlayerWidth,
     selectPlayerHeight,
-    selectPlayer,
+    selectPlayerScale,
+    selectPlayerFrame,
+    selectPlayerPaused,
 } from '../../core/Player/selector';
 import {MessageWindow} from '../MessageWindow';
 import {ShadowFilter} from '../ShadowFilter';
 import {selectCurrentMessageIdList} from '../../core/selector';
 import {selectMessageListDuration} from '../../core/Message/selector';
 import className from './style.css';
-import {updatePlayer, setFrame} from '../../core/Player/action';
+import {setFrame, setPause, setScale} from '../../core/Player/action';
 import {classnames} from '../../util/classnames';
 
 export const PlayerDisplay = () => {
     const dispatch = useDispatch();
-    const player = useSelector(selectPlayer);
+    const paused = useSelector(selectPlayerPaused);
+    const scale = useSelector(selectPlayerScale);
+    const frame = useSelector(selectPlayerFrame);
     const style = useSelector(selectDisplayStyle);
     const id = useSelector(selectPlayerShadowFilterId);
     const width = useSelector(selectPlayerWidth);
@@ -28,6 +32,9 @@ export const PlayerDisplay = () => {
         (event: ChangeEvent<HTMLInputElement>) => {
             const frame = Number(event.currentTarget.value);
             dispatch(setFrame(frame));
+            if (!paused) {
+                dispatch(setPause(true));
+            }
         },
         [dispatch],
     );
@@ -52,9 +59,9 @@ export const PlayerDisplay = () => {
             'button',
             {
                 className: classnames(className.play, className.button),
-                onClick: () => dispatch(updatePlayer({paused: !player.paused})),
+                onClick: () => dispatch(setPause(!paused)),
             },
-            player.paused ? '再生する' : '停止する',
+            paused ? '再生する' : '停止する',
         ),
         createElement(
             'div',
@@ -68,29 +75,29 @@ export const PlayerDisplay = () => {
                     min: 0,
                     max: duration,
                     step: 1,
-                    value: player.frame,
+                    value: frame,
                     onChange: onChangeFrame,
                     style: {width: `${digits.frame.toFixed(1)}rem`},
                 },
             ),
             `/${duration} `,
-            (player.frame / 60).toFixed(1).padStart(digits.sec, ' '),
+            (frame / 60).toFixed(1).padStart(digits.sec, ' '),
             's ',
             createElement(
                 'svg',
                 {
                     className: classnames(className.scale, className.button),
-                    onClick: () => dispatch(updatePlayer({scale: player.scale - 0.1})),
+                    onClick: () => dispatch(setScale(scale - 0.1)),
                     viewBox: '-1 -1 12 12',
                 },
                 createElement('path', {d: 'M0 5H10'}),
             ),
-            `x${player.scale.toFixed(1)}`,
+            `x${scale.toFixed(1)}`,
             createElement(
                 'svg',
                 {
                     className: classnames(className.scale, className.button),
-                    onClick: () => dispatch(updatePlayer({scale: player.scale + 0.1})),
+                    onClick: () => dispatch(setScale(scale + 0.1)),
                     viewBox: '-1 -1 12 12',
                 },
                 createElement('path', {d: 'M0 5H10M5 0V10'}),
@@ -104,7 +111,7 @@ export const PlayerDisplay = () => {
                 min: 0,
                 max: duration,
                 step: 1,
-                value: player.frame,
+                value: frame,
                 onChange: onChangeFrame,
             },
         ),

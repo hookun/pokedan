@@ -8,14 +8,14 @@ import {generateId} from '../../util/generateId';
 import {DefaultFeed} from '../../constants';
 import {useMessageMetrics} from '../../use/MessageMetrics';
 import {MessageId} from '../../types';
-import {selectPlayerCurrentFrame} from '../../core/Player/selector';
+import {selectPlayerFrame} from '../../core/Player/selector';
 
 export const MessageWindow = ({id}: {id: MessageId}) => {
     const message = useMessage(id);
     const filterId = useMemo(() => generateId(), [message.frameColor]);
     const feed = DefaultFeed;
     const {width, height, left, top} = useMessageMetrics(message, feed);
-    const frame = useSelector(selectPlayerCurrentFrame);
+    const frame = useSelector(selectPlayerFrame);
     const length = useMemo(() => {
         return Math.floor(Math.max(0, (frame - message.start) / message.speed));
     }, [message, frame]);

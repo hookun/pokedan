@@ -6,7 +6,6 @@
     grid-template-columns: 5rem 1fr;
     grid-template-rows: repeat(3, minmax(min-content, max-content));
     column-gap: var(--Gap);
-    row-gap: var(--Gap);
     justify-content: center;
     padding: var(--Gap);
     margin: 1rem auto;
@@ -17,7 +16,7 @@
 .svg {
     grid-column: 1 / 3;
     max-width: 100%;
-    margin: 0 auto;
+    margin: 0 auto var(--Gap) auto;
 }
 
 .play {
@@ -36,7 +35,7 @@
     --Size: 1rem;
     width: var(--Size);
     height: var(--Size);
-    margin: 0 0.1rem;
+    margin: 0 0.2rem;
     stroke: var(--ForegroundColor);
 }
 

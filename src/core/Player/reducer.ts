@@ -1,12 +1,25 @@
 import {Store} from 'idb-keyval';
 import {createReducer, ActionType} from 'typesafe-actions';
-import {updatePlayer, setFrame} from './action';
 import {FrameType} from '../../types';
 import {DefaultFrameType} from '../../constants';
+import {
+    setFrame,
+    setPause,
+    setWidth,
+    setHeight,
+    setScale,
+    setFile,
+    setStore,
+} from './action';
 
 type SupportedActions =
-| typeof updatePlayer
-| typeof setFrame;
+| typeof setFile
+| typeof setStore
+| typeof setFrame
+| typeof setPause
+| typeof setScale
+| typeof setWidth
+| typeof setHeight;
 
 export interface Player {
     id: string,
@@ -33,5 +46,10 @@ export const reducer = createReducer<Player, ActionType<SupportedActions>>({
     backgroundColor: 'rgb(0,0,255)',
     frameType: DefaultFrameType,
 })
-.handleAction(updatePlayer, (state, {payload}) => ({...state, ...payload}))
-.handleAction(setFrame, (state, {payload: frame}) => ({...state, frame}));
+.handleAction(setFrame, (state, {payload: frame}) => ({...state, frame}))
+.handleAction(setPause, (state, {payload: paused}) => ({...state, paused}))
+.handleAction(setScale, (state, {payload: scale}) => ({...state, scale}))
+.handleAction(setFile, (state, {payload: file}) => ({...state, file}))
+.handleAction(setStore, (state, {payload: store}) => ({...state, store}))
+.handleAction(setWidth, (state, {payload: width}) => ({...state, width}))
+.handleAction(setHeight, (state, {payload: height}) => ({...state, height}));

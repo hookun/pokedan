@@ -1,9 +1,8 @@
 import {Task} from 'redux-saga';
 import {select, take, call, put, fork, cancel} from 'redux-saga/effects';
-import {selectPlayer} from '../selector';
-import {Player} from '../reducer';
-import {getType} from 'typesafe-actions';
-import {updatePlayer, setFrame} from '../action';
+import {selectPlayerFrame} from '../selector';
+import {getType, ActionType} from 'typesafe-actions';
+import {setFrame, setPause} from '../action';
 import {selectMessageListDuration} from '../../Message/selector';
 
 const waitNextFrame = async (): Promise<number> => {
@@ -13,12 +12,12 @@ const waitNextFrame = async (): Promise<number> => {
 const play = function* () {
     while (1) {
         yield call(waitNextFrame);
-        const player: Player = yield select(selectPlayer);
+        const frame: number = yield select(selectPlayerFrame);
         const duration: number = yield select(selectMessageListDuration);
-        if (player.frame < duration) {
-            yield put(setFrame(player.frame + 1));
+        if (frame < duration) {
+            yield put(setFrame(frame + 1));
         } else {
-            yield put(updatePlayer({paused: true}));
+            yield put(setPause(true));
         }
     }
 }
@@ -26,16 +25,16 @@ const play = function* () {
 export const controlFrame = function* () {
     let task: Task | null = null;
     while (1) {
-        yield take(getType(updatePlayer));
-        const player: Player = yield select(selectPlayer);
-        if (player.paused) {
+        const {payload: paused}: ActionType<typeof setPause> = yield take(getType(setPause));
+        if (paused) {
             if (task) {
                 yield cancel(task);
             }
             task = null;
         } else if (!task) {
             const duration: number = yield select(selectMessageListDuration);
-            if (duration <= player.frame) {
+            const frame: number = yield select(selectPlayerFrame);
+            if (duration <= frame) {
                 yield put(setFrame(0));
             }
             task = yield fork(play);
