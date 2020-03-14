@@ -26,7 +26,6 @@ export const getMessageFragments = function* (element: Node): Generator<MessageF
     let color = textColors[0];
     let text = '';
     for (const step of walkNodeContents<HTMLElement>(element)) {
-        console.log(walkNode.stringifyStep(step));
         switch (step.type) {
             case walkNode.Text:
                 text += step.node.textContent;

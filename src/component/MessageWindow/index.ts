@@ -1,16 +1,34 @@
-import {createElement} from 'react';
+import {createElement, useMemo} from 'react';
 import {useSelector} from 'react-redux';
-import {selectCurrentMessageFragments} from '../../core/selector';
 import {Type} from '../Type';
+import {ColorFilter} from '../ColorFilter';
+import {Frame} from '../Frame';
+import {useMessage} from '../../use/Message';
+import {generateId} from '../../util/generateId';
+import {DefaultFeed} from '../../constants';
+import {useMessageMetrics} from '../../use/MessageMetrics';
+import {MessageId} from '../../types';
+import {selectPlayerCurrentFrame} from '../../core/Player/selector';
 
-export const MessageWindow = () => {
-    const fragments = useSelector(selectCurrentMessageFragments);
+export const MessageWindow = ({id}: {id: MessageId}) => {
+    const message = useMessage(id);
+    const filterId = useMemo(() => generateId(), [message.frameColor]);
+    const feed = DefaultFeed;
+    const {width, height, left, top} = useMessageMetrics(message, feed);
+    const currentFrame = useSelector(selectPlayerCurrentFrame);
+    const length = useMemo(() => {
+        return Math.floor(Math.max(0, (currentFrame - message.start) / message.speed));
+    }, [message, currentFrame]);
     return createElement(
         'g',
-        null,
+        {transform: `translate(${left}, ${top})`},
+        createElement(ColorFilter, {color: message.frameColor, id: filterId}),
+        createElement(Frame, {width, height, filter: filterId}),
         createElement(Type, {
-            fragments,
-            feed: [10, 13],
+            fragments: message.fragments,
+            feed,
+            g: {transform: 'translate(13, 9)'},
+            length,
         }),
     );
 };

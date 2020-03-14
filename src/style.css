@@ -5,6 +5,8 @@
     --White: #EFEFF5;
     --Black: #1a1d10;
     --WindowColor: #3a2828;
+    --SmallFontSize: 0.8rem;
+    --Gap: calc(var(--BaseWidth) * 0.01);
     image-rendering: crisp-edges;
     image-rendering: pixelated;
 }

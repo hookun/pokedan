@@ -1,3 +1,6 @@
+import {put} from 'redux-saga/effects';
+import {updatePlayer} from '../action';
+
 export const onRestart = function* () {
-    console.log('Restart!!!');
+    yield put(updatePlayer({paused: false}));
 };

@@ -22,9 +22,6 @@ export const MessageTextEditor = (
     const ref = useRef<HTMLDivElement>();
     const [range, setRange] = useState<{range: Range, top: number} | null>(null);
     const onMutation = useCallback(() => {
-        for (const fragment of getMessageFragments(ref.current)) {
-            console.log(fragment);
-        }
         dispatch(updateMessage({
             id,
             fragments: [...getMessageFragments(ref.current)],

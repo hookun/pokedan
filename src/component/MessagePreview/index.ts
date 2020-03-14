@@ -5,12 +5,14 @@ import {Type} from '../Type';
 import {Frame} from '../Frame';
 import {ColorFilter} from '../ColorFilter';
 import {generateId} from '../../util/generateId';
+import {useMessageMetrics} from '../../use/MessageMetrics';
+import {DefaultFeed} from '../../constants';
 
 export const MessagePreview = ({id}: {id: MessageId}) => {
     const message = useMessage(id);
     const filterId = useMemo(() => generateId(), [message.frameColor]);
-    const width = 240;
-    const height = 52;
+    const feed = DefaultFeed;
+    const {width, height} = useMessageMetrics(message, feed);
     return createElement(
         'svg',
         {viewBox: `0 0 ${width} ${height}`},
@@ -18,10 +20,8 @@ export const MessagePreview = ({id}: {id: MessageId}) => {
         createElement(Frame, {width, height, filter: filterId}),
         createElement(Type, {
             fragments: message.fragments,
-            feed: [10, 13],
-            g: {
-                transform: 'translate(13, 9)',
-            },
+            feed,
+            g: {transform: 'translate(13, 9)'},
         }),
     );
 };

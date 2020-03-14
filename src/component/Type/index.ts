@@ -5,10 +5,11 @@ import {useFragmentPrinter} from '../../use/FragmentPrinter';
 import {selectPlayerShadowFilterId} from '../../core/Player/selector';
 
 export const Type = (
-    {fragments, feed, g = {}}: {
+    {fragments, feed, g = {}, length}: {
         fragments: Array<MessageFragment>,
         feed: [number, number],
         g?: SVGProps<SVGGElement>,
+        length?: number,
     },
 ) => {
     const printees = useFragmentPrinter(fragments, feed);
@@ -16,7 +17,9 @@ export const Type = (
     return createElement(
         'g',
         {...g, filter: `url(#${id})`},
-        ...printees.map(({character, x, y, color}) => createElement(
+        ...printees
+        .slice(0, 0 <= length ? length : printees.length)
+        .map(({character, x, y, color}) => createElement(
             'use',
             {
                 href: `#U${character.codePointAt(0).toString(16).toUpperCase().padStart(4, '0')}`,

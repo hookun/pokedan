@@ -2,7 +2,7 @@ import {put} from 'redux-saga/effects';
 import {insertMessage} from '../action';
 import {MessageId} from '../../../types';
 import {generateId} from '../../../util/generateId';
-import {textColors} from '../../../constants';
+import {textColors, DefaultColumnCount, DefaultRowCount, DefaultX, DefaultY, DefaultMessageSpeed} from '../../../constants';
 
 export const onRestart = function* () {
     yield put(insertMessage({
@@ -27,8 +27,14 @@ export const onRestart = function* () {
                     color: textColors[0],
                 },
             ],
-            duration: 5000,
+            start: 0,
+            end: 180,
             frameColor: 0,
+            col: DefaultColumnCount,
+            row: DefaultRowCount,
+            x: DefaultX,
+            y: DefaultY,
+            speed: DefaultMessageSpeed,
         },
     }));
     yield put(insertMessage({
@@ -45,8 +51,14 @@ export const onRestart = function* () {
                     color: textColors[0],
                 },
             ],
-            duration: 5000,
+            start: 180,
+            end: 360,
             frameColor: 120,
+            col: DefaultColumnCount,
+            row: DefaultRowCount,
+            x: DefaultX,
+            y: DefaultY,
+            speed: DefaultMessageSpeed,
         },
     }));
     yield put(insertMessage({
@@ -63,8 +75,14 @@ export const onRestart = function* () {
                     color: textColors[0],
                 },
             ],
-            duration: 5000,
+            start: 360,
+            end: 540,
             frameColor: 240,
+            col: DefaultColumnCount,
+            row: DefaultRowCount,
+            x: DefaultX,
+            y: DefaultY,
+            speed: DefaultMessageSpeed,
         },
     }));
     yield put(insertMessage({
@@ -77,8 +95,14 @@ export const onRestart = function* () {
                     color: textColors[0],
                 },
             ],
-            duration: 5000,
+            start: 540,
+            end: 720,
             frameColor: 240,
+            col: DefaultColumnCount,
+            row: DefaultRowCount,
+            x: DefaultX,
+            y: DefaultY,
+            speed: DefaultMessageSpeed,
         },
     }));
 };

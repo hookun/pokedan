@@ -1,6 +1,5 @@
 .colors {
     --Size: 1.5rem;
-    --Gap: 0.2rem;
     position: absolute;
     left: calc(50% - var(--BaseWidth) / 2);
     right: calc(50% - var(--BaseWidth) / 2);

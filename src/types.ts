@@ -18,8 +18,14 @@ export interface MessageFragment {
 export interface Message {
     id: MessageId,
     fragments: Array<MessageFragment>,
-    duration: number,
+    start: number,
+    end: number,
     frameColor: number,
+    col: number,
+    row: number,
+    x: number,
+    y: number,
+    speed: number,
 };
 export interface MessageAndIndex {
     index: number,

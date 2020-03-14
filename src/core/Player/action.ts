@@ -1,9 +1,7 @@
 import {createAction} from 'typesafe-actions';
-import {FrameType} from '../../types';
+import {Player} from './reducer';
 
-export const setFrameType = createAction('setFrameType')<FrameType>();
-
-export const setFrameColor = createAction('setFrameColor')<number>();
+export const updatePlayer = createAction('updatePlayer')<Partial<Player>>();
 
 export const start = createAction('start')();
 

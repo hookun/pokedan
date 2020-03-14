@@ -1,19 +1,10 @@
 import {createElement, Fragment} from 'react';
-import {useSelector} from 'react-redux';
-import {Control} from '../Control';
-import {Display} from '../Display';
-import {selectDisplayAreaStyle} from '../../core/Player/selector';
+import {PlayerControl} from '../PlayerControl';
+import {PlayerDisplay} from '../PlayerDisplay';
 
-export const Player = () => {
-    const style = useSelector(selectDisplayAreaStyle);
-    return createElement(
-        Fragment,
-        null,
-        createElement(
-            'div',
-            {style},
-            createElement(Display),
-        ),
-        createElement(Control),
-    );
-};
+export const Player = () => createElement(
+    Fragment,
+    null,
+    createElement(PlayerDisplay),
+    createElement(PlayerControl),
+);

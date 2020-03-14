@@ -3,9 +3,6 @@ import {
     Base64PNG,
 } from './types';
 
-export const DisplayWidth = 256;
-export const DisplayHeight = 192;
-
 export const FrameType1 = 1 as FrameType;
 export const FrameType2 = 2 as FrameType;
 export const FrameType3 = 3 as FrameType;
@@ -64,3 +61,11 @@ export const textColors = [
     'rgb(36,128,184)',
 ];
 
+export const DisplayWidth = 256;
+export const DisplayHeight = 192;
+export const DefaultColumnCount = 21.5;
+export const DefaultRowCount = 3;
+export const DefaultX = 8;
+export const DefaultY = 130;
+export const DefaultMessageSpeed = 2;
+export const DefaultFeed: [number, number] = [10, 13];
