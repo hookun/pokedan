@@ -109,7 +109,7 @@ export const MessageControl = (
         createElement(NumberInput, {
             title: '速度（0で即時表示）',
             value: message.speed,
-            onChange: (start) => dispatch(updateMessage({id, start})),
+            onChange: (speed) => dispatch(updateMessage({id, speed})),
         }),
         createElement(NumberInput, {
             title: `開始フレーム (${frameToSec(message.start)}s)`,
