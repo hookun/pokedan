@@ -9,6 +9,7 @@ import {
     setScale,
     setFile,
     initializePlayer,
+    setBackground,
 } from './action';
 
 type SupportedActions =
@@ -18,6 +19,7 @@ type SupportedActions =
 | typeof setScale
 | typeof setWidth
 | typeof setHeight
+| typeof setBackground
 | typeof initializePlayer;
 
 export interface Player {
@@ -28,11 +30,11 @@ export interface Player {
     frame: number,
     paused: boolean,
     scale: number,
-    backgroundColor: string,
+    background: [number, number, number],
     frameType: FrameType,
 }
 
-export const reducer = createReducer<Player, ActionType<SupportedActions>>({
+const initialPlayerState: Player = {
     id: `Player-${Date.now().toString(34)}`,
     file: `シーン-${new Date().toLocaleString().replace(/[\s/]+/g, '-')}`,
     width: 256,
@@ -40,13 +42,20 @@ export const reducer = createReducer<Player, ActionType<SupportedActions>>({
     frame: 0,
     paused: true,
     scale: 2,
-    backgroundColor: 'rgb(0,0,255)',
+    background: [0, 0, 255],
     frameType: DefaultFrameType,
-})
+};
+
+export const reducer = createReducer<Player, ActionType<SupportedActions>>(initialPlayerState)
 .handleAction(setFrame, (state, {payload: frame}) => ({...state, frame}))
 .handleAction(setPause, (state, {payload: paused}) => ({...state, paused}))
 .handleAction(setScale, (state, {payload: scale}) => ({...state, scale}))
 .handleAction(setFile, (state, {payload: file}) => ({...state, file}))
 .handleAction(setWidth, (state, {payload: width}) => ({...state, width}))
 .handleAction(setHeight, (state, {payload: height}) => ({...state, height}))
-.handleAction(initializePlayer, (state, {payload}) => ({...state, ...payload}));
+.handleAction(setBackground, (state, {payload: background}) => ({...state, background}))
+.handleAction(initializePlayer, (state, {payload}) => ({
+    ...initialPlayerState,
+    ...state,
+    ...payload,
+}));

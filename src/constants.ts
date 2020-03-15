@@ -61,6 +61,12 @@ export const textColors = [
     'rgb(36,128,184)',
     'rgb(172,21,20)',
     'rgb(231,84,33)',
+    'rgb(3,101,178)',
+    'rgb(77,193,140)',
+    'rgb(0,156,78)',
+    'rgb(239,122,3)',
+    'rgb(219,8,45)',
+    'rgb(42,75,113)',
 ];
 
 export const DisplayWidth = 256;

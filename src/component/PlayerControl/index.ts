@@ -1,10 +1,11 @@
 import {createElement, ReactElement} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
-import {selectPlayerWidth, selectPlayerHeight, selectPlayerScale} from '../../core/Player/selector';
-import {setWidth, setHeight, setScale} from '../../core/Player/action';
+import {selectPlayerWidth, selectPlayerHeight, selectPlayerScale, selectPlayerBackground} from '../../core/Player/selector';
+import {setWidth, setHeight, setScale, setBackground} from '../../core/Player/action';
 import {DisplayWidth, DisplayHeight} from '../../constants';
 import {NumberInput} from '../NumberInput';
 import className from './style.css';
+import {RGBInput} from '../RGBInput';
 
 export const PlayerControl = (): ReactElement => {
     const dispatch = useDispatch();
@@ -14,19 +15,24 @@ export const PlayerControl = (): ReactElement => {
         createElement(NumberInput, {
             title: `画面の幅（初期値${DisplayWidth}）`,
             value: useSelector(selectPlayerWidth),
-            onChange: (width: number) => dispatch(setWidth(width)),
+            onChange: (width) => dispatch(setWidth(width)),
         }),
         createElement(NumberInput, {
             title: `画面の高さ（初期値${DisplayHeight}）`,
             value: useSelector(selectPlayerHeight),
-            onChange: (height: number) => dispatch(setHeight(height)),
+            onChange: (height) => dispatch(setHeight(height)),
         }),
         createElement(NumberInput, {
             title: 'スケール',
             value: useSelector(selectPlayerScale),
-            onChange: (scale: number) => dispatch(setScale(scale)),
+            onChange: (scale) => dispatch(setScale(scale)),
             min: 1,
             step: 0.1,
+        }),
+        createElement(RGBInput, {
+            title: '背景色',
+            value: useSelector(selectPlayerBackground),
+            onChange: (rgb) => dispatch(setBackground(rgb)),
         }),
     );
 }

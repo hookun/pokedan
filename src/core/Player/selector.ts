@@ -10,19 +10,19 @@ export const selectPlayerFrameType = createSelector([selectPlayer], (player) => 
 export const selectPlayerWidth = createSelector([selectPlayer], (player) => player.width);
 export const selectPlayerHeight = createSelector([selectPlayer], (player) => player.height);
 export const selectPlayerScale = createSelector([selectPlayer], (player) => player.scale);
-export const selectPlayerBackgroundColor = createSelector([selectPlayer], (player) => player.backgroundColor);
+export const selectPlayerBackground = createSelector([selectPlayer], (player) => player.background);
 export const selectPlayerFrame = createSelector([selectPlayer], (player) => player.frame);
 export const selectPlayerPaused = createSelector([selectPlayer], (player) => player.paused);
 export const selectDisplayStyle = createSelector(
     [
         selectPlayerScale,
-        selectPlayerBackgroundColor,
+        selectPlayerBackground,
         selectPlayerWidth,
         // selectPlayerHeight,
     ],
-    (scale, backgroundColor, width): CSSProperties => ({
+    (scale, rgb, width): CSSProperties => ({
         width: `${(width * scale).toFixed(0)}px`,
         // height: `${(height * scale).toFixed(0)}px`,
-        backgroundColor,
+        backgroundColor: `rgb(${rgb.map((value) => value.toFixed(0)).join(',')})`,
     }),
 );

@@ -8,3 +8,4 @@ export const setPause = createAction('setPause')<boolean>();
 export const setWidth = createAction('setWidth')<number>();
 export const setHeight = createAction('setHeight')<number>();
 export const setScale = createAction('setScale')<number>();
+export const setBackground = createAction('setBackground')<[number, number, number]>();
