@@ -1,0 +1,29 @@
+.colors {
+    --Size: 1.5rem;
+    position: absolute;
+    margin-top: var(--Gap);
+    margin-bottom: var(--Gap);
+    opacity: 0.7;
+    pointer-events: none;
+    user-select: none;
+}
+
+.available {
+    padding: var(--Gap) 0 0 var(--Gap);
+    background-color: var(--ForegroundColor);
+    border-radius: calc(var(--Size) / 2 + var(--Gap));
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.color {
+    display: inline-block;
+    width: var(--Size);
+    height: var(--Size);
+    border-radius: 50%;
+    margin: 0 var(--Gap) var(--Gap) 0;
+}
+
+.color:hover {
+    box-shadow: 0 0 0 1px var(--BackgroundColor);
+}

@@ -1,6 +1,6 @@
 import {createElement, Fragment} from 'react';
-import {useFrame} from '../../use/Frame';
 import {useSelector} from 'react-redux';
+import {useFrame} from '../../use/Frame';
 import {selectPlayerFrameType} from '../../core/Player/selector';
 
 export const TopFrame = (

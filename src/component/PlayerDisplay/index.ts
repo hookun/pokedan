@@ -31,12 +31,12 @@ export const PlayerDisplay = () => {
     const onChangeFrame = useCallback(
         (event: ChangeEvent<HTMLInputElement>) => {
             const frame = Number(event.currentTarget.value);
-            dispatch(setFrame(frame));
             if (!paused) {
                 dispatch(setPause(true));
             }
+            dispatch(setFrame(frame));
         },
-        [dispatch],
+        [dispatch, paused],
     );
     const digits = useMemo(() => ({
         frame: Math.floor(1 + Math.log10(duration)),

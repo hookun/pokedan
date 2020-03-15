@@ -2,11 +2,10 @@ import {createSelector} from 'reselect';
 import {CSSProperties} from 'react';
 import {Player} from './reducer';
 
-const selectPlayer = (state: {Player: Player}) => state.Player;
+export const selectPlayer = (state: {Player: Player}) => state.Player;
 export const selectPlayerId = createSelector([selectPlayer], (player) => player.id);
 export const selectPlayerShadowFilterId = createSelector([selectPlayerId], (id) => `${id}-Shadow`);
 export const selectPlayerFile = createSelector([selectPlayer], (player) => player.file);
-export const selectPlayerStore = createSelector([selectPlayer], (player) => player.store);
 export const selectPlayerFrameType = createSelector([selectPlayer], (player) => player.frameType);
 export const selectPlayerWidth = createSelector([selectPlayer], (player) => player.width);
 export const selectPlayerHeight = createSelector([selectPlayer], (player) => player.height);

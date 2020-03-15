@@ -20,7 +20,7 @@ const play = function* () {
             yield put(setPause(true));
         }
     }
-}
+};
 
 export const controlFrame = function* () {
     let task: Task | null = null;

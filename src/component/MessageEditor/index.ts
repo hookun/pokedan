@@ -7,12 +7,14 @@ import {MessageControl} from '../MessageControl';
 import className from './style.css';
 import {MessageTextEditor} from '../MessageTextEditor';
 import {selectCurrentMessageIdList} from '../../core/selector';
+import {MessageTextTool} from '../MessageTextTool';
 
 export const MessageEditor = ({id}: {id: MessageId}) => {
     const activeMessageIdList = useSelector(selectCurrentMessageIdList);
     return createElement(
         'div',
         {
+            id: `Editor-${id}`,
             className: classnames(
                 className.container,
                 activeMessageIdList.includes(id) && className.current,
@@ -20,9 +22,7 @@ export const MessageEditor = ({id}: {id: MessageId}) => {
         },
         createElement(MessagePreview, {id}),
         createElement(MessageControl, {id}),
-        createElement(MessageTextEditor, {
-            id,
-            className: className.text,
-        }),
+        createElement(MessageTextEditor, {id, className: className.text}),
+        createElement(MessageTextTool, {id}),
     );
 };

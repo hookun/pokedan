@@ -27,13 +27,14 @@ export interface Message {
     y: number,
     speed: number,
 };
-export interface MessageAndIndex {
-    index: number,
-    message: Message,
-}
 export interface Printee {
     character: string,
     color: string,
     x: number,
     y: number,
+}
+
+export interface MessageRange {
+    id: MessageId,
+    range: Range,
 }

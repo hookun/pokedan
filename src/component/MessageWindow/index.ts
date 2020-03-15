@@ -21,7 +21,15 @@ export const MessageWindow = ({id}: {id: MessageId}) => {
     }, [message, frame]);
     return createElement(
         'g',
-        {transform: `translate(${left}, ${top})`},
+        {
+            transform: `translate(${left}, ${top})`,
+            onClick: () => {
+                const editor = document.querySelector(`#Editor-${id}`);
+                if (editor) {
+                    editor.scrollIntoView({behavior: 'smooth', block: 'end'});
+                }
+            },
+        },
         createElement(ColorFilter, {color: message.frameColor, id: filterId}),
         createElement(Frame, {width, height, filter: filterId}),
         createElement(Type, {

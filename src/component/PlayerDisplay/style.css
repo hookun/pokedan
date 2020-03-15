@@ -27,7 +27,7 @@
 
 .button {
     border: 1px solid var(--ForegroundColor);
-    border-radius: 0.2rem;
+    border-radius: var(--ButtonRadius);
 }
 
 .scale {
