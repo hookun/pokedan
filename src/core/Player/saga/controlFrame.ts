@@ -1,5 +1,5 @@
 import {Task} from 'redux-saga';
-import {select, take, call, put, fork, cancel} from 'redux-saga/effects';
+import {select, take, call, put, fork, cancel, all} from 'redux-saga/effects';
 import {selectPlayerFrame} from '../selector';
 import {getType, ActionType} from 'typesafe-actions';
 import {setFrame, setPause} from '../action';
@@ -9,13 +9,19 @@ const waitNextFrame = async (): Promise<number> => {
     return await new Promise((resolve) => requestAnimationFrame(resolve));
 }
 
-const play = function* () {
+const play = function* (framePerSecond = 60) {
+    const [f0, t0]: [number, number] = yield all([
+        select(selectPlayerFrame),
+        call(waitNextFrame),
+    ]);
     while (1) {
-        yield call(waitNextFrame);
-        const frame: number = yield select(selectPlayerFrame);
-        const duration: number = yield select(selectMessageListDuration);
+        const [t1, duration]: [number, number] = yield all([
+            call(waitNextFrame),
+            select(selectMessageListDuration),
+        ]);
+        const frame = Math.round(f0 + (t1 - t0) * framePerSecond / 1000);
         if (frame < duration) {
-            yield put(setFrame(frame + 1));
+            yield put(setFrame(frame));
         } else {
             yield put(setPause(true));
         }
