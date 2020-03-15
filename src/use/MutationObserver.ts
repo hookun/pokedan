@@ -4,9 +4,9 @@ export const useMutationObserver = (
     ref: MutableRefObject<Element>,
     onMutation: (records: Array<MutationRecord>) => void,
     init: MutationObserverInit,
-) => useEffect(() => {
+): void => useEffect(() => {
     const container = ref.current;
     const observer = new MutationObserver(onMutation);
     observer.observe(container, init);
-    return () => observer.disconnect();
+    return (): void => observer.disconnect();
 }, [ref, onMutation]);

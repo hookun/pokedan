@@ -1,4 +1,4 @@
-import {useRef, createElement, useCallback, useMemo, useEffect} from 'react';
+import {useRef, createElement, useCallback, useMemo, useEffect, ReactElement} from 'react';
 import {useDispatch} from 'react-redux';
 import {MessageId} from '../../types';
 import {useMessage} from '../../use/Message';
@@ -10,15 +10,15 @@ import {setMessageRange, clearMessageRange} from '../../core/MessageRange/action
 
 export const MessageTextEditor = (
     {id, className}: {id: MessageId, className: string},
-) => {
+): ReactElement => {
     const ref = useRef<HTMLDivElement>();
+    const dispatch = useDispatch();
     const range = useSelectionRangeInElement(ref);
     useEffect(() => {
         if (range) {
             dispatch(setMessageRange({id, range}));
         }
     }, [range]);
-    const dispatch = useDispatch();
     const message = useMessage(id);
     const onMutation = useCallback(() => {
         const fragments = [...getMessageFragments(ref.current)];

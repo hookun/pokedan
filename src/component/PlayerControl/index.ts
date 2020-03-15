@@ -1,4 +1,4 @@
-import {createElement} from 'react';
+import {createElement, ReactElement} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {selectPlayerWidth, selectPlayerHeight, selectPlayerScale} from '../../core/Player/selector';
 import {setWidth, setHeight, setScale} from '../../core/Player/action';
@@ -6,7 +6,7 @@ import {DisplayWidth, DisplayHeight} from '../../constants';
 import {NumberInput} from '../NumberInput';
 import className from './style.css';
 
-export const PlayerControl = () => {
+export const PlayerControl = (): ReactElement => {
     const dispatch = useDispatch();
     return createElement(
         'div',

@@ -1,4 +1,12 @@
-export const createBase64Tool = (source: string, padding: string) => {
+export interface Base64Tool {
+    encode: (source: ArrayBuffer) => string,
+    decode: (source: string) => ArrayBuffer,
+}
+
+export const createBase64Tool = (
+    source: string,
+    padding: string,
+): Base64Tool => {
     const encode = new Map<number, string>();
     const decode = new Map<string, number>();
     for (let chunk = 0; chunk < 64; chunk++) {
@@ -6,7 +14,7 @@ export const createBase64Tool = (source: string, padding: string) => {
         encode.set(chunk, chunkRef);
         decode.set(chunkRef, chunk);
     }
-    const getPaddingLength = (base64: string) => {
+    const getPaddingLength = (base64: string): number => {
         const equalIndex = base64.indexOf(padding);
         return equalIndex < 0 ? 0 : base64.length - equalIndex;
     };
@@ -27,7 +35,7 @@ export const createBase64Tool = (source: string, padding: string) => {
                 result[chunkIndex++] = encode.get(A & 0b111111);
             }
             if (filledLength < byteLength) {
-                let A = array[filledLength];
+                const A = array[filledLength];
                 result[chunkIndex++] = encode.get(A >>> 2);
                 const B = array[filledLength + 1];
                 if (0 <= B) {
@@ -43,7 +51,7 @@ export const createBase64Tool = (source: string, padding: string) => {
             return result.join('');
         },
         decode: (base64: string): ArrayBuffer => {
-            const c = (index: number) => decode.get(base64[index]);
+            const c = (index: number): number => decode.get(base64[index]);
             const paddingLength = getPaddingLength(base64);
             const result = new Uint8Array(3 * (base64.length / 4) - paddingLength);
             const base64Length = base64.length - paddingLength;

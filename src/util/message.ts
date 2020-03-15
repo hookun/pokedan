@@ -15,7 +15,9 @@ export const fillMessage = (messageLike: Partial<Message>): Message => ({
     speed: 0 <= messageLike.speed ? messageLike.speed : DefaultMessageSpeed,
 });
 
-export const reduceMessages = (messages: Array<Partial<Message>>) => {
+export const reduceMessages = (
+    messages: Array<Partial<Message>>,
+): {list: Array<MessageId>, map: Map<MessageId, Message>} => {
     const list: Array<MessageId> = [];
     const map = new Map<MessageId, Message>();
     let lastFrame = 0;

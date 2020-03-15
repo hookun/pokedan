@@ -1,4 +1,4 @@
-import {createElement, Fragment} from 'react';
+import {createElement, Fragment, ReactElement} from 'react';
 import {useSelector} from 'react-redux';
 import {useFrame} from '../../use/Frame';
 import {selectPlayerFrameType} from '../../core/Player/selector';
@@ -9,7 +9,7 @@ export const TopFrame = (
         y: number,
         width: number,
     },
-) => {
+): ReactElement => {
     const height = 2;
     return createElement(
         Fragment,
@@ -27,7 +27,7 @@ export const BottomFrame = (
         y: number,
         width: number,
     },
-) => createElement(
+): ReactElement => createElement(
     Fragment,
     null,
     createElement('rect', {x, y, width, height: 2, fill: 'rgb(43,44,137)'}),
@@ -42,7 +42,7 @@ export const LeftFrame = (
         y: number,
         height: number,
     },
-) => createElement(
+): ReactElement => createElement(
     Fragment,
     null,
     createElement('rect', {x, y, width: 2, height, fill: 'rgb(70,85,164)'}),
@@ -58,7 +58,7 @@ export const RightFrame = (
         y: number,
         height: number,
     },
-) => createElement(
+): ReactElement => createElement(
     Fragment,
     null,
     createElement('rect', {x, y, width: 2, height, fill: 'rgb(43,44,137)'}),
@@ -74,7 +74,7 @@ export const Frame = (
         height: number,
         filter: string,
     },
-) => {
+): ReactElement => {
     const frameType = useSelector(selectPlayerFrameType);
     const {TopRight, BottomRight} = useFrame(frameType);
     const hBarWidth = width - (TopRight.width - 1) * 2;

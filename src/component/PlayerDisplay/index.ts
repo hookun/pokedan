@@ -1,4 +1,4 @@
-import {createElement, useCallback, ChangeEvent, useMemo} from 'react';
+import {createElement, useCallback, ChangeEvent, useMemo, ReactElement} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
     selectDisplayStyle,
@@ -17,7 +17,7 @@ import className from './style.css';
 import {setFrame, setPause, setScale} from '../../core/Player/action';
 import {classnames} from '../../util/classnames';
 
-export const PlayerDisplay = () => {
+export const PlayerDisplay = (): ReactElement => {
     const dispatch = useDispatch();
     const paused = useSelector(selectPlayerPaused);
     const scale = useSelector(selectPlayerScale);

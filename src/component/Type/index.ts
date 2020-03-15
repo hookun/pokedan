@@ -1,4 +1,4 @@
-import {createElement, SVGProps} from 'react';
+import {createElement, SVGProps, ReactElement} from 'react';
 import {useSelector} from 'react-redux';
 import {MessageFragment} from '../../types';
 import {useFragmentPrinter} from '../../use/FragmentPrinter';
@@ -11,7 +11,7 @@ export const Type = (
         g?: SVGProps<SVGGElement>,
         length?: number,
     },
-) => {
+): ReactElement => {
     const printees = useFragmentPrinter(fragments, feed);
     const id = useSelector(selectPlayerShadowFilterId);
     return createElement(

@@ -4,9 +4,10 @@
     "license": "Apache-2.0",
     "scripts": {
         "start": "build-page --watch",
-        "build": "build-page",
+        "build": "build-page --dest docs",
         "test": "run-s test:*",
         "test:type": "tsc --noEmit",
+        "test:lint": "eslint --ext .ts src",
         "test:unit": "ava"
     },
     "devDependencies": {
@@ -14,7 +15,11 @@
         "@types/react": "^16.9.23",
         "@types/react-dom": "^16.9.5",
         "@types/react-redux": "^7.1.7",
+        "@typescript-eslint/eslint-plugin": "^2.23.0",
+        "@typescript-eslint/parser": "^2.23.0",
         "ava": "^3.5.0",
+        "eslint": "^6.8.0",
+        "eslint-plugin-react": "^7.19.0",
         "idb-keyval": "^3.2.0",
         "npm-run-all": "^4.1.5",
         "react": "^16.13.0",
@@ -34,6 +39,50 @@
         "require": [
             "ts-node/register",
             "./node-shim.js"
+        ]
+    },
+    "eslintConfig": {
+        "parser": "@typescript-eslint/parser",
+        "plugins": [
+            "@typescript-eslint",
+            "react"
+        ],
+        "extends": [
+            "eslint:recommended",
+            "plugin:@typescript-eslint/eslint-recommended",
+            "plugin:@typescript-eslint/recommended",
+            "plugin:react/recommended"
+        ],
+        "rules": {
+            "@typescript-eslint/member-delimiter-style": ["error", {
+                "multiline": {
+                    "delimiter": "comma",
+                    "requireLast": true
+                },
+                "singleline": {
+                    "delimiter": "comma",
+                    "requireLast": false
+                }
+            }]
+        },
+        "overrides": [
+            {
+                "files": [
+                    "src/types.ts"
+                ],
+                "rules": {
+                    "@typescript-eslint/no-explicit-any": "off"
+                }
+            },
+            {
+                "files": [
+                    "*.saga.ts",
+                    "**/saga/*.ts"
+                ],
+                "rules": {
+                    "@typescript-eslint/explicit-function-return-type": "off"
+                }
+            }
         ]
     }
 }

@@ -1,11 +1,11 @@
-import {createElement, Fragment, useMemo, CSSProperties} from 'react';
+import {createElement, Fragment, useMemo, CSSProperties, ReactElement} from 'react';
 import {MessageId} from '../../types';
 import {classnames} from '../../util/classnames';
 import {textColors} from '../../constants';
 import {useMessageRange} from '../../use/MessageRange';
 import className from './style.css';
 
-export const MessageTextTool = ({id}: {id: MessageId}) => {
+export const MessageTextTool = ({id}: {id: MessageId}): ReactElement => {
     const range = useMessageRange(id);
     const style = useMemo<null | CSSProperties>(() => {
         if (range) {

@@ -1,23 +1,23 @@
 import {MutableRefObject, useEffect, useState} from 'react';
 
-export const useSelectionRange = () => {
+export const useSelectionRange = (): Range | null => {
     const [range, setRange] = useState<Range | null>(null);
     useEffect(() => {
-        const onSelectionChange = () => {
+        const onSelectionChange = (): void => {
             const selection = document.getSelection();
             if (selection.rangeCount === 1) {
                 setRange(selection.getRangeAt(0).cloneRange());
             }
         };
         document.addEventListener('selectionchange', onSelectionChange);
-        return () => document.removeEventListener('selectionchange', onSelectionChange);
+        return (): void => document.removeEventListener('selectionchange', onSelectionChange);
     }, []);
     return range;
 };
 
 export const useSelectionRangeInElement = (
     ref: MutableRefObject<Element> | null,
-) => {
+): Range | null => {
     const range = useSelectionRange();
     const [rangeInTargetElement, setRange] = useState<Range | null>();
     useEffect(() => {

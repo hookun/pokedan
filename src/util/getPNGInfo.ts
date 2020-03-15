@@ -10,7 +10,7 @@ export interface PNGInfo {
     interlaceMethod: number,
 }
 
-const checkSize = (size: number) => {
+const checkSize = (size: number): number => {
     if (size == 0 || 2147483647 < size) {
         throw new Error(`InvalidSize: ${size}`);
     }

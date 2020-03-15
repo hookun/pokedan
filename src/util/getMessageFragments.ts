@@ -14,6 +14,7 @@ const isFirstElement = (element: Node): boolean => {
                 if (previousSibling.textContent) {
                     return false;
                 }
+                break;
             default:
         }
         previousSibling = previousSibling.previousSibling;

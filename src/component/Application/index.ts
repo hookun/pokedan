@@ -1,11 +1,11 @@
-import {createElement, Fragment} from 'react';
+import {createElement, Fragment, ReactElement} from 'react';
 import {PlayerDisplay} from '../PlayerDisplay';
 import {PlayerControl} from '../PlayerControl';
 import {selectMessageList} from '../../core/Message/selector';
 import {useSelector} from 'react-redux';
 import {MessageEditor} from '../MessageEditor';
 
-export const Application = () => {
+export const Application = (): ReactElement => {
     const messageList = useSelector(selectMessageList);
     return createElement(
         Fragment,

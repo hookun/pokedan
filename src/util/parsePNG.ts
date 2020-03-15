@@ -1,4 +1,4 @@
-const checkHeader = (view: DataView) => [
+const checkHeader = (view: DataView): boolean => [
     0x89,
     0x50,
     0x4E,

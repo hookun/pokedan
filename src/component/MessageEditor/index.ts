@@ -1,4 +1,4 @@
-import {createElement} from 'react';
+import {createElement, ReactElement} from 'react';
 import {classnames} from '../../util/classnames';
 import {MessageId} from '../../types';
 import {MessagePreview} from '../MessagePreview';
@@ -9,7 +9,7 @@ import {MessageTextEditor} from '../MessageTextEditor';
 import {selectCurrentMessageIdList} from '../../core/selector';
 import {MessageTextTool} from '../MessageTextTool';
 
-export const MessageEditor = ({id}: {id: MessageId}) => {
+export const MessageEditor = ({id}: {id: MessageId}): ReactElement => {
     const activeMessageIdList = useSelector(selectCurrentMessageIdList);
     return createElement(
         'div',

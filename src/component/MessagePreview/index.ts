@@ -1,4 +1,4 @@
-import {createElement, useMemo} from 'react';
+import {createElement, useMemo, ReactElement} from 'react';
 import {MessageId} from '../../types';
 import {useMessage} from '../../use/Message';
 import {Type} from '../Type';
@@ -8,7 +8,7 @@ import {generateId} from '../../util/generateId';
 import {useMessageMetrics} from '../../use/MessageMetrics';
 import {DefaultFeed} from '../../constants';
 
-export const MessagePreview = ({id}: {id: MessageId}) => {
+export const MessagePreview = ({id}: {id: MessageId}): ReactElement => {
     const message = useMessage(id);
     const filterId = useMemo(() => generateId(), [message.frameColor]);
     const feed = DefaultFeed;

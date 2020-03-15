@@ -1,4 +1,4 @@
-import {createElement, Fragment, useMemo, useCallback} from 'react';
+import {createElement, Fragment, useMemo, useCallback, ReactElement} from 'react';
 import {generateId} from '../../util/generateId';
 import className from './style.css';
 
@@ -12,7 +12,7 @@ export const NumberInput = (
         max?: number,
         step?: number,
     },
-) => {
+): ReactElement => {
     const id = useMemo(generateId, []);
     const onChange = useCallback((event) => {
         props.onChange(Number(event.currentTarget.value));

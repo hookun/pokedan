@@ -1,4 +1,4 @@
-import {createElement, useMemo} from 'react';
+import {createElement, useMemo, ReactElement} from 'react';
 import {useSelector} from 'react-redux';
 import {Type} from '../Type';
 import {ColorFilter} from '../ColorFilter';
@@ -10,7 +10,7 @@ import {useMessageMetrics} from '../../use/MessageMetrics';
 import {MessageId} from '../../types';
 import {selectPlayerFrame} from '../../core/Player/selector';
 
-export const MessageWindow = ({id}: {id: MessageId}) => {
+export const MessageWindow = ({id}: {id: MessageId}): ReactElement => {
     const message = useMessage(id);
     const filterId = useMemo(() => generateId(), [message.frameColor]);
     const feed = DefaultFeed;

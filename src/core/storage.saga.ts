@@ -11,8 +11,8 @@ import {Player} from './Player/reducer';
 import {readDB, writeDB, Stores, deleteDB} from '../util/db';
 import {textColors} from '../constants';
 
-const playerKey = (file: string) => `${file}/Player`;
-const messageListKey = (file: string) => `${file}/Messages`;
+const playerKey = (file: string): string => `${file}/Player`;
+const messageListKey = (file: string): string => `${file}/Messages`;
 const lastFileKey = 'LastFile';
 
 export const onRestart = function* () {

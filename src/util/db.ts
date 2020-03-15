@@ -6,7 +6,9 @@ export const Stores = {
     Message: 'Message',
 };
 
-const openDB = async (name: string) => await new Promise<IDBDatabase>((resolve, reject) => {
+const openDB = async (
+    name: string,
+): Promise<IDBDatabase> => await new Promise<IDBDatabase>((resolve, reject) => {
     const req = indexedDB.open(name, Stores.version);
     req.addEventListener('success', () => resolve(req.result));
     req.addEventListener('error', () => reject(req.error));
@@ -23,7 +25,7 @@ const openTransaction = async (
         store: string,
         mode: IDBTransactionMode,
     },
-) => {
+): Promise<IDBTransaction> => {
     const db = await openDB(DBName);
     return db.transaction(props.store, props.mode);
 };

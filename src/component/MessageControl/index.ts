@@ -1,4 +1,4 @@
-import {createElement, Fragment, useCallback, ChangeEvent} from 'react';
+import {createElement, Fragment, useCallback, ChangeEvent, ReactElement} from 'react';
 import className from './style.css';
 import {useMessage} from '../../use/Message';
 import {MessageId} from '../../types';
@@ -10,7 +10,7 @@ import {classnames} from '../../util/classnames';
 
 export const MessageControl = (
     {id}: {id: MessageId},
-) => {
+): ReactElement => {
     const message = useMessage(id);
     const dispatch = useDispatch();
     const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {

@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux';
 import {MessageId} from '../types';
 import {selectMessageRange} from '../core/MessageRange/selector';
 
-export const useMessageRange = (id: MessageId) => {
+export const useMessageRange = (id: MessageId): Range | null => {
     const messageRange = useSelector(selectMessageRange);
     if (messageRange && messageRange.id === id) {
         return messageRange.range;

@@ -1,6 +1,18 @@
 import {Message} from '../types';
 
-export const useMessageMetrics = (message: Message, feed: [number, number]) => {
+export interface MessageMetrics {
+    left: number,
+    right: number,
+    top: number,
+    bottom: number,
+    width: number,
+    height: number,
+}
+
+export const useMessageMetrics = (
+    message: Message,
+    feed: [number, number],
+): MessageMetrics => {
     const left = message.x;
     const top = message.y;
     const width = 25 + message.col * feed[0];

@@ -2,7 +2,7 @@ import {createSelector} from 'reselect';
 import {CSSProperties} from 'react';
 import {Player} from './reducer';
 
-export const selectPlayer = (state: {Player: Player}) => state.Player;
+export const selectPlayer = (state: {Player: Player}): Player => state.Player;
 export const selectPlayerId = createSelector([selectPlayer], (player) => player.id);
 export const selectPlayerShadowFilterId = createSelector([selectPlayerId], (id) => `${id}-Shadow`);
 export const selectPlayerFile = createSelector([selectPlayer], (player) => player.file);
