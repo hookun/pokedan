@@ -29,7 +29,7 @@ export const MessageTextEditor = (
         onMutation,
         {characterData: true, childList: true, subtree: true},
     );
-    const fragments = useMemo(() => message.fragments, [!range && id]);
+    const fragments = useMemo(() => message.fragments, [id]);
     return createElement(
         'div',
         {
