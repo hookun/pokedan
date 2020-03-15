@@ -65,6 +65,7 @@ export const MessageTextTool = ({id}: {id: MessageId}): ReactElement => {
                         const fragment = range.extractContents();
                         wrap.textContent = fragment.textContent;
                         range.insertNode(wrap);
+                        wrap.parentElement.normalize();
                     },
                 },
             )),
