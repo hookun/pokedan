@@ -32,7 +32,7 @@ export const RGBInput = (
         createElement(
             'div',
             {className: className.rgb},
-            ...props.value.map((value, index) => createElement(
+            ...props.value.map((defaultValue, index) => createElement(
                 Input,
                 {
                     className: className.input,
@@ -40,7 +40,7 @@ export const RGBInput = (
                     min: 0,
                     max: 255,
                     step: 1,
-                    value,
+                    defaultValue,
                     onChange: (event) => onChange(event, index),
                 },
             )),

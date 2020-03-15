@@ -35,7 +35,7 @@ export const NumberInput = (
                 min: props.min || 0,
                 max: props.max || null,
                 step: props.step || 1,
-                value: props.value,
+                defaultValue: props.value,
                 onChange,
             },
         ),
