@@ -81,9 +81,7 @@ export const PlayerDisplay = (): ReactElement => {
                     style: {width: `${digits.frame.toFixed(1)}rem`},
                 },
             ),
-            `/${duration} `,
-            frameToSec(duration).padStart(digits.sec, ' '),
-            's ',
+            `(${frameToSec(frame)}s) /${duration} (${frameToSec(duration).padStart(digits.sec, ' ')}s)`,
             createElement(
                 'svg',
                 {
