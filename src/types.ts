@@ -22,6 +22,7 @@ export interface Message {
     fragments: Array<MessageFragment>,
     start: number,
     end: number,
+    from: number,
     frameColor: number,
     col: number,
     row: number,

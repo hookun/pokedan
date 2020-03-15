@@ -7,6 +7,7 @@ export const fillMessage = (messageLike: Partial<Message>): Message => ({
     fragments: messageLike.fragments || [],
     start: messageLike.start ||  0,
     end: messageLike.end || 200,
+    from: messageLike.from || 0,
     frameColor: messageLike.frameColor || 0,
     col: messageLike.col || DefaultColumnCount,
     row: messageLike.row || DefaultRowCount,

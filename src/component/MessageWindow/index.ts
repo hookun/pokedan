@@ -16,9 +16,7 @@ export const MessageWindow = ({id}: {id: MessageId}): ReactElement => {
     const feed = DefaultFeed;
     const {width, height, left, top} = useMessageMetrics(message, feed);
     const frame = useSelector(selectPlayerFrame);
-    const length = useMemo(() => {
-        return Math.floor(Math.max(0, (frame - message.start) / message.speed));
-    }, [message, frame]);
+    const length = message.from + Math.floor(Math.max(0, (frame - message.start) / message.speed));
     return createElement(
         'g',
         {

@@ -68,7 +68,6 @@ export const PlayerDisplay = (): ReactElement => {
         createElement(
             'div',
             {className: className.label},
-            'フレーム',
             createElement(
                 Input,
                 {

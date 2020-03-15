@@ -35,6 +35,7 @@ export const reducer = createReducer<MessageState, ActionType<SupportedActions>>
                 color: textColors[0],
             },
         ],
+        from: 6,
     },
     {
         fragments: [
@@ -47,6 +48,7 @@ export const reducer = createReducer<MessageState, ActionType<SupportedActions>>
                 color: textColors[0],
             },
         ],
+        from: 6,
         frameColor: 120,
     },
     {
@@ -60,6 +62,7 @@ export const reducer = createReducer<MessageState, ActionType<SupportedActions>>
                 color: textColors[0],
             },
         ],
+        from: 6,
         frameColor: 240,
     },
     {
@@ -69,6 +72,7 @@ export const reducer = createReducer<MessageState, ActionType<SupportedActions>>
                 color: textColors[0],
             },
         ],
+        from: 0,
         frameColor: 240,
     },
 ]))

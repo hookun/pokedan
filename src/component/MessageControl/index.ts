@@ -76,10 +76,10 @@ export const MessageControl = (
         createElement(
             'label',
             {
-                className: className.label,
+                className: classnames(className.label, className.frameColor),
                 htmlFor: `${id}-FrameColor`,
             },
-            '枠の色',
+            '枠色',
             createElement(
                 Input,
                 {
@@ -97,7 +97,7 @@ export const MessageControl = (
         createElement(
             Input,
             {
-                className: className.input,
+                className: classnames(className.input, className.frameColor),
                 id: `${id}-FrameColorRange`,
                 type: 'range',
                 min: 0,
@@ -108,14 +108,24 @@ export const MessageControl = (
             },
         ),
         createElement(NumberInput, {
-            title: '速度（0で即時表示）',
+            title: '速度',
             value: message.speed,
             onChange: (speed) => dispatch(updateMessage({id, speed})),
         }),
         createElement(NumberInput, {
-            title: `開始フレーム (${frameToSec(message.start)}s)`,
+            title: '開始位置',
+            value: message.from,
+            onChange: (from) => dispatch(updateMessage({id, from})),
+        }),
+        createElement(NumberInput, {
+            title: `開始 (${frameToSec(message.start)}s)`,
             value: message.start,
             onChange: (start) => dispatch(updateMessage({id, start})),
+        }),
+        createElement(NumberInput, {
+            title: `終了 (${frameToSec(message.end)}s)`,
+            value: message.end,
+            onChange: (end) => dispatch(updateMessage({id, end})),
         }),
         createElement(NumberInput, {
             title: '行数',
@@ -124,24 +134,19 @@ export const MessageControl = (
             onChange: (row) => dispatch(updateMessage({id, row})),
         }),
         createElement(NumberInput, {
-            title: '左端からの距離',
-            value: message.x,
-            onChange: (x) => dispatch(updateMessage({id, x})),
-        }),
-        createElement(NumberInput, {
-            title: `終了フレーム (${frameToSec(message.end)}s)`,
-            value: message.end,
-            onChange: (end) => dispatch(updateMessage({id, end})),
-        }),
-        createElement(NumberInput, {
-            title: '1行の文字数',
+            title: '文字/行',
             value: message.col,
             min: 1,
             step: 0.5,
             onChange: (col) => dispatch(updateMessage({id, col})),
         }),
         createElement(NumberInput, {
-            title: '上端からの距離',
+            title: '左端',
+            value: message.x,
+            onChange: (x) => dispatch(updateMessage({id, x})),
+        }),
+        createElement(NumberInput, {
+            title: '上端',
             value: message.y,
             onChange: (y) => dispatch(updateMessage({id, y})),
         }),

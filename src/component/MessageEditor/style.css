@@ -1,12 +1,10 @@
 .container {
-    --ColumnWidth: calc(var(--BaseWidth) / 3 - var(--Gap) * 2);
+    --ColumnWidth: calc(var(--BaseWidth) / 4 - var(--Gap) * 3);
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: repeat(3, var(--ColumnWidth));
+    grid-template-columns: repeat(4, var(--ColumnWidth));
     grid-template-rows:
-        minmax(min-content, max-content)
-        calc(var(--Gap) + var(--SmallFontSize))
-        repeat(6, minmax(min-content, max-content));
+        repeat(7, minmax(min-content, max-content));
     column-gap: calc(var(--Gap) * 2);
     row-gap: var(--Gap);
     justify-content: center;
@@ -23,13 +21,13 @@
 
 .container>svg {
     width: 100%;
-    grid-column: 1 / 4;
+    grid-column: 1 / 5;
     grid-row: 1 / 2;
 }
 
 .text {
     --LineHeight: calc(1rem + var(--Gap));
-    grid-column: 1 / 4;
+    grid-column: 1 / 5;
     grid-row: 8 / 9;
     white-space: pre;
     min-height: calc(var(--LineHeight) + var(--Gap) * 2);
