@@ -3,7 +3,7 @@ import {Task} from 'redux-saga';
 import {getType, ActionType} from 'typesafe-actions';
 import {Message, MessageId} from '../types';
 import {restart} from './action';
-import {setFile, initializePlayer, setPause} from './Player/action';
+import {setFile, initializePlayer, setPause, setFrame, setWidth, setHeight, setScale, setBackground} from './Player/action';
 import {updateMessage, initializeMessages, deleteMessage, insertMessage} from './Message/action';
 import {selectMessageMap, selectMessageList} from './Message/selector';
 import {selectPlayerFile, selectPlayer} from './Player/selector';
@@ -149,9 +149,12 @@ export const list = () => [
         400,
         [
             getType(initializePlayer),
-            getType(insertMessage),
-            getType(deleteMessage),
-            getType(updateMessage),
+            getType(setFile),
+            getType(setFrame),
+            getType(setWidth),
+            getType(setHeight),
+            getType(setScale),
+            getType(setBackground),
         ],
         savePlayerData,
     ),
