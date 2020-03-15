@@ -16,6 +16,7 @@ import {selectMessageListDuration} from '../../core/Message/selector';
 import className from './style.css';
 import {setFrame, setPause, setScale} from '../../core/Player/action';
 import {classnames} from '../../util/classnames';
+import {frameToSec} from '../../util/frameToSec';
 
 export const PlayerDisplay = (): ReactElement => {
     const dispatch = useDispatch();
@@ -81,7 +82,7 @@ export const PlayerDisplay = (): ReactElement => {
                 },
             ),
             `/${duration} `,
-            (frame / 60).toFixed(1).padStart(digits.sec, ' '),
+            frameToSec(duration).padStart(digits.sec, ' '),
             's ',
             createElement(
                 'svg',

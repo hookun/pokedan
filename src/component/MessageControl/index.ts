@@ -7,6 +7,7 @@ import {updateMessage, deleteMessage, insertMessage} from '../../core/Message/ac
 import {NumberInput} from '../NumberInput';
 import {setFrame, setPause} from '../../core/Player/action';
 import {classnames} from '../../util/classnames';
+import {frameToSec} from '../../util/frameToSec';
 
 export const MessageControl = (
     {id}: {id: MessageId},
@@ -38,7 +39,7 @@ export const MessageControl = (
             createElement('div', null, 'ID'),
             createElement('div', null, message.id),
             createElement('div', null, '長さ'),
-            createElement('div', null, `${duration}f (${(duration / 60).toFixed(1)}s)`),
+            createElement('div', null, `${duration}f (${frameToSec(duration)}s)`),
             createElement(
                 'div',
                 {className: className.textButtons},
@@ -111,7 +112,7 @@ export const MessageControl = (
             onChange: (start) => dispatch(updateMessage({id, start})),
         }),
         createElement(NumberInput, {
-            title: '開始フレーム',
+            title: `開始フレーム (${frameToSec(message.start)}s)`,
             value: message.start,
             onChange: (start) => dispatch(updateMessage({id, start})),
         }),
@@ -127,7 +128,7 @@ export const MessageControl = (
             onChange: (x) => dispatch(updateMessage({id, x})),
         }),
         createElement(NumberInput, {
-            title: '終了フレーム',
+            title: `終了フレーム (${frameToSec(message.end)}s)`,
             value: message.end,
             onChange: (end) => dispatch(updateMessage({id, end})),
         }),
