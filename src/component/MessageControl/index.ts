@@ -8,6 +8,7 @@ import {NumberInput} from '../NumberInput';
 import {setFrame, setPause} from '../../core/Player/action';
 import {classnames} from '../../util/classnames';
 import {frameToSec} from '../../util/frameToSec';
+import {Input} from '../Input';
 
 export const MessageControl = (
     {id}: {id: MessageId},
@@ -80,7 +81,7 @@ export const MessageControl = (
             },
             '枠の色',
             createElement(
-                'input',
+                Input,
                 {
                     className: className.input,
                     id: `${id}-FrameColor`,
@@ -94,7 +95,7 @@ export const MessageControl = (
             ),
         ),
         createElement(
-            'input',
+            Input,
             {
                 className: className.input,
                 id: `${id}-FrameColorRange`,

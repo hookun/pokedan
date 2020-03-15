@@ -1,6 +1,7 @@
 import {createElement, Fragment, useCallback, ReactElement} from 'react';
 import className from './style.css';
 import {rgbToHexString} from '../../util/rgbToHexString';
+import {Input} from '../Input';
 
 export const RGBInput = (
     props: {
@@ -32,7 +33,7 @@ export const RGBInput = (
             'div',
             {className: className.rgb},
             ...props.value.map((value, index) => createElement(
-                'input',
+                Input,
                 {
                     className: className.input,
                     type: 'number',

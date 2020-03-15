@@ -1,6 +1,7 @@
 import {createElement, Fragment, useMemo, useCallback, ReactElement} from 'react';
 import {generateId} from '../../util/generateId';
 import className from './style.css';
+import {Input} from '../Input';
 
 export const NumberInput = (
     props: {
@@ -26,7 +27,7 @@ export const NumberInput = (
             props.title,
         ),
         createElement(
-            'input',
+            Input,
             {
                 className: className.input,
                 id: id,

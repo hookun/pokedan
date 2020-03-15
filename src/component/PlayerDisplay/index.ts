@@ -17,6 +17,7 @@ import className from './style.css';
 import {setFrame, setPause, setScale} from '../../core/Player/action';
 import {classnames} from '../../util/classnames';
 import {frameToSec} from '../../util/frameToSec';
+import {Input} from '../Input';
 
 export const PlayerDisplay = (): ReactElement => {
     const dispatch = useDispatch();
@@ -69,7 +70,7 @@ export const PlayerDisplay = (): ReactElement => {
             {className: className.label},
             'フレーム',
             createElement(
-                'input',
+                Input,
                 {
                     className: className.frame,
                     type: 'number',
@@ -103,7 +104,7 @@ export const PlayerDisplay = (): ReactElement => {
             ),
         ),
         createElement(
-            'input',
+            Input,
             {
                 className: className.seek,
                 type: 'range',
