@@ -1,4 +1,4 @@
-import {Message, MessageId} from '../types';
+import {Message, MessageId, MessageFragment} from '../types';
 import {generateId} from './generateId';
 import {DefaultColumnCount, DefaultRowCount, DefaultX, DefaultY, DefaultMessageSpeed} from '../constants';
 
@@ -33,4 +33,26 @@ export const reduceMessages = (
         lastFrame = message.end;
     }
     return {list, map};
+};
+
+export const fragmentSpan = ({text, color}: MessageFragment): HTMLSpanElement => {
+    const spanElement = document.createElement('span');
+    spanElement.style.color = color;
+    const textNode = document.createTextNode(text);
+    spanElement.appendChild(textNode);
+    return spanElement;
+};
+
+export const parseFragments = function* (fragments: Array<MessageFragment>): Generator<Node> {
+    let lineElement = document.createElement('div');
+    for (const {text, color} of fragments) {
+        const lines = text.split(/[\r\n]+/);
+        lineElement.appendChild(fragmentSpan({text: lines[0], color}));
+        for (const line of lines.slice(1)) {
+            yield lineElement;
+            lineElement = document.createElement('div');
+            lineElement.appendChild(fragmentSpan({text: line, color}));
+        }
+    }
+    yield lineElement;
 };

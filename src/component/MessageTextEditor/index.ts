@@ -1,4 +1,4 @@
-import {useRef, createElement, useCallback, useMemo, useEffect, ReactElement} from 'react';
+import {useRef, createElement, useCallback, useEffect, ReactElement} from 'react';
 import {useDispatch} from 'react-redux';
 import {MessageId} from '../../types';
 import {useMessage} from '../../use/Message';
@@ -7,6 +7,8 @@ import {useSelectionRangeInElement} from '../../use/SelectionRange';
 import {getMessageFragments} from '../../util/getMessageFragments';
 import {updateMessage} from '../../core/Message/action';
 import {setMessageRange, clearMessageRange} from '../../core/MessageRange/action';
+import {clearNode} from '../../util/clearNode';
+import {parseFragments} from '../../util/message';
 
 export const MessageTextEditor = (
     {id, className}: {id: MessageId, className: string},
@@ -29,7 +31,16 @@ export const MessageTextEditor = (
         onMutation,
         {characterData: true, childList: true, subtree: true},
     );
-    const fragments = useMemo(() => message.fragments, [id]);
+    useEffect(() => {
+        const {fragments} = message;
+        const editorElement = ref.current;
+        if (editorElement && !range) {
+            clearNode(editorElement);
+            for (const element of parseFragments(fragments)) {
+                editorElement.appendChild(element);
+            }
+        }
+    }, [ref, id]);
     return createElement(
         'div',
         {
@@ -40,6 +51,5 @@ export const MessageTextEditor = (
             suppressContentEditableWarning: true,
             onBlur: () => dispatch(clearMessageRange()),
         },
-        ...fragments.map(({text, color}) => createElement('span', {style: {color}}, text)),
     );
 };
