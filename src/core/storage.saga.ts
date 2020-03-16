@@ -3,13 +3,14 @@ import {Task} from 'redux-saga';
 import {getType, ActionType} from 'typesafe-actions';
 import {Message, MessageId} from '../types';
 import {restart} from './action';
-import {setFile, initializePlayer, setPause, setFrame, setWidth, setHeight, setScale, setBackground} from './Player/action';
+import {setFile, initializePlayer, setFrame, setWidth, setHeight, setScale, setBackground} from './Player/action';
 import {updateMessage, initializeMessages, deleteMessage, insertMessage} from './Message/action';
 import {selectMessageMap, selectMessageList} from './Message/selector';
 import {selectPlayerFile, selectPlayer} from './Player/selector';
 import {Player} from './Player/reducer';
 import {readDB, writeDB, Stores, deleteDB} from '../util/db';
 import {textColors} from '../constants';
+import {reduceMessages} from '../util/message';
 
 const playerKey = (file: string): string => `${file}/Player`;
 const messageListKey = (file: string): string => `${file}/Messages`;
@@ -19,19 +20,45 @@ export const onRestart = function* () {
     let file: string | undefined = yield call(readDB, Stores.Root, lastFileKey);
     if (!file) {
         file = yield select(selectPlayerFile);
-        const [map, messageList, player]: [
-            Map<MessageId, Message>,
-            Array<MessageId>,
-            Player,
-        ] = yield all([
-            select(selectMessageMap),
-            select(selectMessageList),
-            select(selectPlayer),
+        const {map, list} = reduceMessages([
+            {
+                fragments: [
+                    {text: 'ピカチュウ', color: textColors[2]},
+                    {text: '「ここは てんきがいいと\n いつも ', color: textColors[0]},
+                    {text: 'クラブ', color: textColors[1]},
+                    {text: 'たちが ゆうがたに\n あわを ふくんだけど……', color: textColors[0]},
+                ],
+                from: 6,
+            },
+            {
+                fragments: [
+                    {text: 'ピカチュウ', color: textColors[2]},
+                    {text: '「ゆうひの うみに\n たくさんの あわが かさなって……', color: textColors[0]},
+                ],
+                from: 6,
+                frameColor: 120,
+            },
+            {
+                fragments: [
+                    {text: 'ピカチュウ', color: textColors[2]},
+                    {text: '「ホント いつみても\n きれいだよなあ。', color: textColors[0]},
+                ],
+                from: 6,
+                frameColor: 240,
+            },
+            {
+                fragments: [
+                    {text: '（……でも　どうしてだろう？\n　なにも　おもいだせない……。）', color: textColors[0]},
+                ],
+                from: 0,
+                frameColor: 240,
+            },
         ]);
+        const player: Player = yield select(selectPlayer);
         yield all([
             call(writeDB, Stores.Root, playerKey(file), player),
-            call(writeDB, Stores.Root, messageListKey(file), messageList),
-            ...messageList.map((id) => call(writeDB, Stores.Message, id, map.get(id))),
+            call(writeDB, Stores.Root, messageListKey(file), list),
+            ...list.map((id) => call(writeDB, Stores.Message, id, map.get(id))),
         ]);
     }
     yield put(setFile(file));
@@ -52,7 +79,6 @@ export const onUpdateFile = function* ({payload: file}: ActionType<typeof setFil
     }
     if (player) {
         yield put(initializePlayer(player));
-        yield put(setPause(false));
     }
 };
 
