@@ -12,6 +12,7 @@ export const Application = (): ReactElement => {
         null,
         createElement('h2', null, 'メッセージを再生'),
         createElement(PlayerDisplay),
+        createElement('h2', null, '画面の設定'),
         createElement(PlayerControl),
         createElement('h2', null, 'メッセージを編集'),
         ...messageList.map((id) => createElement(MessageEditor, {id})),
