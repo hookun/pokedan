@@ -12,12 +12,14 @@ export const NumberInput = (
         min?: number,
         max?: number,
         step?: number,
+        placeholder?: string,
     },
 ): ReactElement => {
     const id = useMemo(generateId, []);
     const onChange = useCallback((event) => {
         props.onChange(Number(event.currentTarget.value));
     }, [props.onChange]);
+    const step = props.step || 1;
     return createElement(
         Fragment,
         null,
@@ -34,8 +36,9 @@ export const NumberInput = (
                 type: props.type || 'number',
                 min: props.min || 0,
                 max: props.max || null,
-                step: props.step || 1,
-                defaultValue: props.value,
+                step,
+                defaultValue: Math.round(props.value / step) * step,
+                placeholder: props.placeholder,
                 onChange,
             },
         ),
