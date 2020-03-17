@@ -1,13 +1,13 @@
 .container {
-    --ColumnWidth: calc(var(--BaseWidth) / 3 - var(--Gap) * 2);
     display: grid;
     grid-auto-flow: column;
-    grid-template-columns: repeat(3, var(--ColumnWidth));
+    grid-template-columns: 4rem repeat(2, minmax(min-content, max-content));
     grid-template-rows: repeat(4, minmax(min-content, max-content));
     column-gap: calc(var(--Gap) * 2);
     row-gap: var(--Gap);
-    justify-content: center;
+    justify-content: start;
     align-items: end;
+    width: var(--BaseWidth);
     margin: 1rem auto 2rem auto;
 }
 
