@@ -44,3 +44,26 @@ footer {
     margin: 1rem auto 0 auto;
     padding: 2rem 0;
 }
+
+button {
+    cursor: pointer;
+}
+
+input[type=range] {
+    --ThumbSize: 1rem;
+    background-size: calc(100% - var(--ThumbSize)) 2px;
+}
+
+::-webkit-slider-thumb {
+    height: var(--ThumbSize);
+    -webkit-appearance: none;
+    width: var(--ThumbSize);
+    height: var(--ThumbSize);
+    border-radius: 50%;
+    background-color: var(--White);
+    border: 1px solid var(--Black);
+}
+
+::-webkit-slider-thumb:active {
+    box-shadow: 0 0 2px var(--BackgroundColor);
+}
