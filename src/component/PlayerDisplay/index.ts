@@ -40,10 +40,6 @@ export const PlayerDisplay = (): ReactElement => {
         },
         [dispatch, paused],
     );
-    const digits = useMemo(() => ({
-        frame: Math.floor(1 + Math.log10(duration)),
-        sec: Math.floor(3 + Math.log10(duration / 60)),
-    }), [duration]);
     return createElement(
         'div',
         {className: className.container},
@@ -69,20 +65,6 @@ export const PlayerDisplay = (): ReactElement => {
             'div',
             {className: className.label},
             createElement(
-                Input,
-                {
-                    className: className.frame,
-                    type: 'number',
-                    min: 0,
-                    max: duration,
-                    step: 1,
-                    defaultValue: frame,
-                    onChange: onChangeFrame,
-                    style: {width: `${digits.frame.toFixed(1)}rem`},
-                },
-            ),
-            `(${frameToSec(frame)}s) /${duration} (${frameToSec(duration).padStart(digits.sec, ' ')}s)`,
-            createElement(
                 'svg',
                 {
                     className: classnames(className.scale, className.button),
@@ -101,6 +83,19 @@ export const PlayerDisplay = (): ReactElement => {
                 },
                 createElement('path', {d: 'M0 5H10M5 0V10'}),
             ),
+            createElement(
+                Input,
+                {
+                    className: className.frame,
+                    type: 'number',
+                    min: 0,
+                    max: duration,
+                    step: 1,
+                    defaultValue: frame,
+                    onChange: onChangeFrame,
+                },
+            ),
+            `(${frameToSec(frame)}s) /${duration} (${frameToSec(duration)}s)`,
         ),
         createElement(
             Input,
