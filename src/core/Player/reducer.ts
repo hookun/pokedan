@@ -42,7 +42,7 @@ const initialPlayerState: Player = {
     frame: 0,
     paused: true,
     scale: 2,
-    background: [0, 0, 255],
+    background: [255, 0, 255],
     frameType: DefaultFrameType,
 };
 
