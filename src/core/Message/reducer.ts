@@ -18,15 +18,15 @@ export const reducer = createReducer<MessageState, ActionType<SupportedActions>>
     map: new Map(),
     list: [],
 })
-.handleAction(insertMessage, ({map, list}, {payload}) => {
-    const index = typeof payload.index === 'number' ? payload.index : list.indexOf(payload.index) + 1;
-    const message = fillMessage({...payload.message, id: null});
+.handleAction(insertMessage, ({map, list}, {payload: {index, message}}) => {
+    const insertAt = typeof index === 'number' ? index : list.indexOf(index) + 1;
+    const newMessage = fillMessage(message, {id: null});
     return {
-        map: new Map([[message.id, message], ...map]),
+        map: new Map([[newMessage.id, newMessage], ...map]),
         list: [
-            ...list.slice(0, index),
-            message.id,
-            ...list.slice(index),
+            ...list.slice(0, insertAt),
+            newMessage.id,
+            ...list.slice(insertAt),
         ],
     };
 })
