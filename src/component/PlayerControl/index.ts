@@ -13,17 +13,19 @@ export const PlayerControl = (): ReactElement => {
         'div',
         {className: className.container},
         createElement(NumberInput, {
-            title: `画面の幅（初期値${DisplayWidth}）`,
+            title: '幅',
+            placeholder: `${DisplayWidth}`,
             value: useSelector(selectPlayerWidth),
             onChange: (width) => dispatch(setWidth(width)),
         }),
         createElement(NumberInput, {
-            title: `画面の高さ（初期値${DisplayHeight}）`,
+            title: '高さ',
+            placeholder: `${DisplayHeight}`,
             value: useSelector(selectPlayerHeight),
             onChange: (height) => dispatch(setHeight(height)),
         }),
         createElement(NumberInput, {
-            title: 'スケール',
+            title: '拡大率',
             value: useSelector(selectPlayerScale),
             onChange: (scale) => dispatch(setScale(scale)),
             min: 1,
