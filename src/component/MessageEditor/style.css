@@ -1,22 +1,47 @@
 .container {
-    --ColumnWidth: calc(var(--BaseWidth) / 4 - var(--Gap) * 3);
+    --ColumnWidth: calc((var(--BaseWidth) - var(--Gap) * 3) / 4);
     display: grid;
     grid-auto-flow: column;
     grid-template-columns: repeat(4, var(--ColumnWidth));
-    grid-template-rows:
-        repeat(7, minmax(min-content, max-content));
-    column-gap: calc(var(--Gap) * 2);
+    grid-template-rows: repeat(7, minmax(min-content, max-content));
+    column-gap: var(--Gap);
     row-gap: var(--Gap);
     justify-content: center;
     align-items: end;
-    padding: 2rem 0;
+    padding: 1rem 0;
     overflow: hidden;
+    counter-increment: message;
+}
+
+.container::after {
+    content: '#' counter(message) ' ' attr(data-title);
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    font-size: 80%;
+    line-height: 1rem;
+    opacity: 0.5;
+}
+
+.container:nth-child(2n+1)::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: var(--ForegroundColor);
+    opacity: 0.05;
 }
 
 .current {
     background-image: linear-gradient(0deg, var(--Orange), var(--Orange));
     background-size: var(--Gap) 100%;
     background-position-x: left;
+}
+
+.current::after {
+    font-weight: bolder;
 }
 
 .container>svg {
