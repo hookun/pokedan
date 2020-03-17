@@ -1,7 +1,8 @@
 import {createElement, Fragment, useCallback, ReactElement} from 'react';
 import className from './style.css';
-import {rgbToHexString} from '../../util/rgbToHexString';
+import {rgbToHex, hexToRGB, isBright} from '../../util/color';
 import {Input} from '../Input';
+import {classnames} from '../../util/classnames';
 
 export const RGBInput = (
     props: {
@@ -15,19 +16,34 @@ export const RGBInput = (
         newValue[index] = Number(event.currentTarget.value);
         props.onChange(newValue);
     }, [props.onChange]);
+    const hex = rgbToHex(props.value);
     return createElement(
         Fragment,
         null,
         createElement(
-            'label',
+            'div',
             {className: className.label},
-            `${props.title} (`,
+            `${props.title} `,
             createElement(
                 'span',
-                {className: className.hex},
-                rgbToHexString(props.value),
+                {
+                    className: classnames(
+                        className.hex,
+                        isBright(props.value) && className.bright,
+                    ),
+                    style: {backgroundColor: hex},
+                },
+                hex,
             ),
-            ')',
+            createElement(
+                'input',
+                {
+                    className: className.colorInput,
+                    type: 'color',
+                    value: hex.toLowerCase(),
+                    onChange: (event) => props.onChange(hexToRGB(event.currentTarget.value)),
+                },
+            ),
         ),
         createElement(
             'div',
