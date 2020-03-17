@@ -2,19 +2,28 @@ import {Message, MessageId, MessageFragment} from '../types';
 import {generateId} from './generateId';
 import {DefaultColumnCount, DefaultRowCount, DefaultX, DefaultY, DefaultMessageSpeed} from '../constants';
 
-export const fillMessage = (messageLike: Partial<Message>): Message => ({
-    id: messageLike.id || generateId<MessageId>(),
-    fragments: messageLike.fragments || [],
-    start: messageLike.start ||  0,
-    end: messageLike.end || 200,
-    from: messageLike.from || 0,
-    frameColor: messageLike.frameColor || 0,
-    col: messageLike.col || DefaultColumnCount,
-    row: messageLike.row || DefaultRowCount,
-    x: messageLike.x || DefaultX,
-    y: messageLike.y || DefaultY,
-    speed: 0 <= messageLike.speed ? messageLike.speed : DefaultMessageSpeed,
+export const cloneMessageFragment = ({text, color}: MessageFragment): MessageFragment => ({
+    text,
+    color,
 });
+
+export const fillMessage = (...patches: Array<Partial<Message>>): Message => {
+    const messageLike: Partial<Message> = {};
+    Object.assign(messageLike, ...patches);
+    return {
+        id: messageLike.id || generateId<MessageId>(),
+        fragments: (messageLike.fragments || []).map(cloneMessageFragment),
+        start: messageLike.start ||  0,
+        end: messageLike.end || 200,
+        from: messageLike.from || 0,
+        frameColor: messageLike.frameColor || 0,
+        col: messageLike.col || DefaultColumnCount,
+        row: messageLike.row || DefaultRowCount,
+        x: messageLike.x || DefaultX,
+        y: messageLike.y || DefaultY,
+        speed: 0 <= messageLike.speed ? messageLike.speed : DefaultMessageSpeed,
+    };
+};
 
 export const reduceMessages = (
     messages: Array<Partial<Message>>,
