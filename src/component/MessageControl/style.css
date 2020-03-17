@@ -4,15 +4,18 @@
     grid-column: 1 / 3;
     display: grid;
     grid-template-columns: repeat(2, minmax(min-content, max-content)) 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     column-gap: var(--Gap);
-    align-items: end;
+    align-items: center;
     font-size: var(--SmallFontSize);
 }
 
-.button {
-    grid-row: 1 / 4;
+.buttons>.button {
     height: 100%;
+    grid-row: 1 / 3;
+}
+
+.button {
     padding: var(--Gap);
     white-space: pre-wrap;
     border: 1px solid var(--ForegroundColor);
@@ -20,21 +23,17 @@
 }
 
 .delete {
-    color: var(--Red);
+    color: var(--White);
+    background-color: var(--Red);
+    border: none;
 }
 
-.textButtons {
+.rowButtons {
     grid-column: 2 / 4;
-    width: 100%;
-}
-
-.textButton {
-    margin-right: var(--Gap);
-}
-
-.textButton:hover {
-    filter: brightness(200%);
-    text-decoration: underline;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(min-content, max-content));
+    column-gap: var(--Gap);
+    justify-content: start;
 }
 
 .label {
@@ -62,7 +61,6 @@
         hsl(130, 100%, 50%),
         hsl(220, 100%, 50%)
     );
-    background-size: 100% 4px;
 }
 
 .frameColor {

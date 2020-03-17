@@ -2,18 +2,20 @@ import {createElement, Fragment, useCallback, ChangeEvent, ReactElement} from 'r
 import className from './style.css';
 import {useMessage} from '../../use/Message';
 import {MessageId} from '../../types';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {updateMessage, deleteMessage, insertMessage} from '../../core/Message/action';
 import {NumberInput} from '../NumberInput';
 import {setFrame, setPause} from '../../core/Player/action';
 import {classnames} from '../../util/classnames';
 import {frameToSec} from '../../util/frameToSec';
 import {Input} from '../Input';
+import {selectPlayerPaused} from '../../core/Player/selector';
 
 export const MessageControl = (
     {id}: {id: MessageId},
 ): ReactElement => {
     const message = useMessage(id);
+    const paused = useSelector(selectPlayerPaused);
     const dispatch = useDispatch();
     const onChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         const frameColor = Number(event.currentTarget.value);
@@ -31,23 +33,32 @@ export const MessageControl = (
                 {
                     className: className.button,
                     onClick: () => {
+                        dispatch(setPause(true));
                         dispatch(setFrame(message.start));
-                        dispatch(setPause(false));
+                        if (!paused) {
+                            dispatch(setPause(false));
+                        }
                     },
                 },
-                'ここから\n再生',
+                'ここに\n移動',
             ),
-            createElement('div', null, 'ID'),
-            createElement('div', null, message.id),
             createElement('div', null, '長さ'),
             createElement('div', null, `${duration}f (${frameToSec(duration)}s)`),
             createElement(
                 'div',
-                {className: className.textButtons},
+                {className: className.rowButtons},
                 createElement(
                     'button',
                     {
-                        className: className.textButton,
+                        className: className.button,
+                        onClick: () => dispatch(setPause(!paused)),
+                    },
+                    paused ? '再生' : '停止',
+                ),
+                createElement(
+                    'button',
+                    {
+                        className: className.button,
                         onClick: () => dispatch(insertMessage({
                             index: id,
                             message: {
@@ -62,7 +73,7 @@ export const MessageControl = (
                 createElement(
                     'button',
                     {
-                        className: classnames(className.textButton, className.delete),
+                        className: classnames(className.button, className.delete),
                         onClick: () => {
                             if (confirm('このメッセージを削除します')) {
                                 dispatch(deleteMessage(id));
@@ -79,7 +90,7 @@ export const MessageControl = (
                 className: classnames(className.label, className.frameColor),
                 htmlFor: `${id}-FrameColor`,
             },
-            '枠色',
+            '枠の色',
             createElement(
                 Input,
                 {
