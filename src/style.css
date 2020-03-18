@@ -17,14 +17,6 @@ h1, h2, p, summary {
     width: var(--BaseWidth);
 }
 
-h1, h2 {
-    margin-bottom: 1rem;
-}
-
-p {
-    line-height: 1.5;
-}
-
 summary {
     margin: 1rem auto;
 }
@@ -34,19 +26,6 @@ svg[title="Preview"] {
     margin: 1rem auto;
     background-color: var(--WindowColor);
     fill: var(--White);
-}
-
-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem auto 0 auto;
-    padding: 2rem 0;
-}
-
-button {
-    cursor: pointer;
 }
 
 input[type=range] {
