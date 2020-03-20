@@ -6,3 +6,5 @@ export const reducer = combineReducers({
     list: listReducer,
     map: mapReducer,
 });
+
+export type MessageState = ReturnType<typeof reducer>;
