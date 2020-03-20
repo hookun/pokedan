@@ -1,5 +1,5 @@
 import {createElement, ReactElement} from 'react';
-import {classnames} from '../../util/classnames';
+import {classnames} from '@hookun/util/classnames';
 import {MessageId} from '../../types';
 import {MessagePreview} from '../MessagePreview';
 import {useSelector} from 'react-redux';

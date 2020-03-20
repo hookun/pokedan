@@ -1,9 +1,8 @@
-import {FrameType} from '../types';
 import {useMemo} from 'react';
+import {Base64} from '@hookun/util/base64';
+import {getPNGInfo, PNGInfo} from '@hookun/util/getPNGInfo';
+import {FrameType} from '../types';
 import {FrameData} from '../constants';
-import {getPNGInfo, PNGInfo} from '../util/getPNGInfo';
-import {Base64} from '../util/base64';
-import {dataURI} from '../util/dataURI';
 
 export interface CornerInfo extends PNGInfo {
     url: string,
@@ -18,11 +17,11 @@ export const useFrame = (
     return {
         TopRight: {
             ...TopRightPNGInfo,
-            url: dataURI('image/png', TopRight),
+            url: `data:image/png;base64,${TopRight}`,
         },
         BottomRight: {
             ...BottomRightPNGInfo,
-            url: dataURI('image/png', BottomRight),
+            url: `data:image/png;base64,${BottomRight}`,
         },
     }; 
 };

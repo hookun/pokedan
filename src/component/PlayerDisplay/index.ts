@@ -1,5 +1,6 @@
-import {createElement, useCallback, ChangeEvent, useMemo, ReactElement} from 'react';
+import {createElement, useCallback, ChangeEvent, ReactElement} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
+import {classnames} from '@hookun/util/classnames';
 import {
     selectDisplayStyle,
     selectPlayerShadowFilterId,
@@ -13,11 +14,10 @@ import {MessageWindow} from '../MessageWindow';
 import {ShadowFilter} from '../ShadowFilter';
 import {selectCurrentMessageIdList} from '../../core/selector';
 import {selectMessageListDuration} from '../../core/Message/selector';
-import className from './style.css';
 import {setFrame, setPause, setScale} from '../../core/Player/action';
-import {classnames} from '../../util/classnames';
 import {frameToSec} from '../../util/frameToSec';
 import {Input} from '../Input';
+import className from './style.css';
 
 export const PlayerDisplay = (): ReactElement => {
     const dispatch = useDispatch();

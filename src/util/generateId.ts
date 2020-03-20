@@ -1,4 +1,4 @@
-import {createCounter} from './createCounter';
+import {createCounter} from '@hookun/util/createCounter';
 
 const count = createCounter();
 const SessionId = Date.now().toString(34);

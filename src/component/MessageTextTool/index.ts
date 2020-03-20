@@ -1,6 +1,6 @@
 import {createElement, Fragment, useMemo, CSSProperties, ReactElement} from 'react';
+import {classnames} from '@hookun/util/classnames';
 import {MessageId} from '../../types';
-import {classnames} from '../../util/classnames';
 import {textColors} from '../../constants';
 import {useMessageRange} from '../../use/MessageRange';
 import className from './style.css';

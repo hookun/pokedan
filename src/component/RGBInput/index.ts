@@ -1,8 +1,8 @@
 import {createElement, Fragment, useCallback, ReactElement} from 'react';
-import className from './style.css';
+import {classnames} from '@hookun/util/classnames';
 import {rgbToHex, hexToRGB, isBright} from '../../util/color';
 import {Input} from '../Input';
-import {classnames} from '../../util/classnames';
+import className from './style.css';
 
 export const RGBInput = (
     props: {

@@ -1,15 +1,15 @@
 import {createElement, Fragment, useCallback, ChangeEvent, ReactElement} from 'react';
-import className from './style.css';
+import {useDispatch, useSelector} from 'react-redux';
+import {classnames} from '@hookun/util/classnames';
 import {useMessage} from '../../use/Message';
 import {MessageId} from '../../types';
-import {useDispatch, useSelector} from 'react-redux';
 import {updateMessage, deleteMessage, insertMessage} from '../../core/Message/action';
 import {NumberInput} from '../NumberInput';
 import {setFrame, setPause} from '../../core/Player/action';
-import {classnames} from '../../util/classnames';
 import {frameToSec} from '../../util/frameToSec';
 import {Input} from '../Input';
 import {selectPlayerPaused} from '../../core/Player/selector';
+import className from './style.css';
 
 export const MessageControl = (
     {id}: {id: MessageId},

@@ -1,6 +1,6 @@
 import {MessageFragment} from '../types';
 import {textColors} from '../constants';
-import {walkNode, walkNodeContents} from './walkNode';
+import {walkNode, walkNodeContents} from '@hookun/domutil/walkNode';
 
 const blockElementTagName = new Set(['DIV']);
 const getTagName = (element: Element): string => element.tagName.toUpperCase();

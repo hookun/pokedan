@@ -1,5 +1,6 @@
 import {useRef, createElement, useCallback, useEffect, ReactElement} from 'react';
 import {useDispatch} from 'react-redux';
+import {clearNode} from '@hookun/domutil/clearNode';
 import {MessageId} from '../../types';
 import {useMessage} from '../../use/Message';
 import {useMutationObserver} from '../../use/MutationObserver';
@@ -7,7 +8,6 @@ import {useSelectionRangeInElement} from '../../use/SelectionRange';
 import {getMessageFragments} from '../../util/getMessageFragments';
 import {updateMessage} from '../../core/Message/action';
 import {setMessageRange, clearMessageRange} from '../../core/MessageRange/action';
-import {clearNode} from '../../util/clearNode';
 import {parseFragments} from '../../util/message';
 
 export const MessageTextEditor = (
