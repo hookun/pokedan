@@ -33,7 +33,14 @@ export const getMessageFragments = function* (element: Node): Generator<MessageF
                 break;
             case walkNode.Enter: {
                 const {node} = step;
-                color = node.style.color || color;
+                const newColor = node.style.color || color;
+                if (newColor !== color) {
+                    if (text) {
+                        yield {color, text};
+                    }
+                    color = newColor;
+                    text = '';
+                }
                 currentColorMap.set(node, color);
                 if (blockElementTagName.has(getTagName(node)) && !isFirstElement(node)) {
                     text += '\n';
