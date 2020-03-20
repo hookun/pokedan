@@ -7,7 +7,7 @@ import {selectMessageListDuration} from '../../Message/selector';
 
 const waitNextFrame = async (): Promise<number> => {
     return await new Promise((resolve) => requestAnimationFrame(resolve));
-}
+};
 
 const play = function* (framePerSecond = 60) {
     const [f0, t0]: [number, number] = yield all([

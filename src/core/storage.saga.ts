@@ -124,7 +124,7 @@ export const savePlayerData = function* () {
         select(selectPlayer),
     ]);
     yield call(writeDB, Stores.Root, playerKey(file), player);
-}
+};
 
 export const deleteMessageFromDB = function* ({payload: id}: ActionType<typeof deleteMessage>) {
     console.log({delete: id});

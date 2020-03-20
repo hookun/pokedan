@@ -1,7 +1,11 @@
 import {useMemo} from 'react';
 import {printFragments} from '../util/printFragments';
-import {Printee} from '../types';
+import {Printee, MessageFragment} from '../types';
 
 export const useFragmentPrinter = (
-    ...args: Parameters<typeof printFragments>
-): Array<Printee> => useMemo(() => [...printFragments(...args)], args);
+    fragments: Array<MessageFragment>,
+    [characterfeed, lineFeed]: [number, number],
+): Array<Printee> => useMemo(
+    () => [...printFragments(fragments, [characterfeed, lineFeed])],
+    [fragments, characterfeed, lineFeed],
+);

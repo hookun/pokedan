@@ -12,7 +12,7 @@ import {selectPlayerFrame} from '../../core/Player/selector';
 
 export const MessageWindow = ({id}: {id: MessageId}): ReactElement => {
     const message = useMessage(id);
-    const filterId = useMemo(() => generateId(), [message.frameColor]);
+    const filterId = useMemo(() => `${generateId()}-${message.frameColor}`, [message.frameColor]);
     const feed = DefaultFeed;
     const {width, height, left, top} = useMessageMetrics(message, feed);
     const frame = useSelector(selectPlayerFrame);

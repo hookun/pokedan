@@ -15,7 +15,7 @@ export const Input = (baseProps: InputHTMLAttributes<HTMLInputElement>): ReactEl
         if (!focused && input) {
             input.value = `${baseProps.defaultValue}`;
         }
-    }, [ref, baseProps.defaultValue]);
+    }, [ref, baseProps.defaultValue, focused]);
     return createElement('input', {
         ...baseProps,
         onFocus: () => setFocused(true),

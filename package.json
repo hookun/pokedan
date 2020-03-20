@@ -15,11 +15,7 @@
         "@types/react": "^16.9.23",
         "@types/react-dom": "^16.9.5",
         "@types/react-redux": "^7.1.7",
-        "@typescript-eslint/eslint-plugin": "^2.24.0",
-        "@typescript-eslint/parser": "^2.24.0",
         "ava": "^3.5.0",
-        "eslint": "^6.8.0",
-        "eslint-plugin-react": "^7.19.0",
         "npm-run-all": "^4.1.5",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
@@ -41,37 +37,7 @@
         ]
     },
     "eslintConfig": {
-        "parser": "@typescript-eslint/parser",
-        "plugins": [
-            "@typescript-eslint",
-            "react"
-        ],
-        "extends": [
-            "eslint:recommended",
-            "plugin:@typescript-eslint/eslint-recommended",
-            "plugin:@typescript-eslint/recommended",
-            "plugin:react/recommended"
-        ],
-        "settings": {
-            "react": {
-                "version": "detect"
-            }
-        },
-        "rules": {
-            "@typescript-eslint/member-delimiter-style": [
-                "error",
-                {
-                    "multiline": {
-                        "delimiter": "comma",
-                        "requireLast": true
-                    },
-                    "singleline": {
-                        "delimiter": "comma",
-                        "requireLast": false
-                    }
-                }
-            ]
-        },
+        "extends": "./node_modules/@hookun/builder/.eslintrc.dom.json",
         "overrides": [
             {
                 "files": [

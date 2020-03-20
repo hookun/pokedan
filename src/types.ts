@@ -7,7 +7,7 @@ export interface TypeFilter<Type> {
     type: string,
 }
 
-export type Nominal<Type, Name extends string> = Type & {__name: Name}
+export type Nominal<Type, Name extends string> = Type & {__name: Name};
 export type MessageId = Nominal<string, 'MessageId'>;
 export type FrameType = Nominal<number, 'FrameType'>;
 export type Base64PNG = Nominal<string, 'Base64PNG'>;

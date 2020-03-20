@@ -9,4 +9,4 @@ export const useMutationObserver = (
     const observer = new MutationObserver(onMutation);
     observer.observe(container, init);
     return (): void => observer.disconnect();
-}, [ref, onMutation]);
+}, [ref, onMutation, init]);

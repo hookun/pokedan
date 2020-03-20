@@ -37,4 +37,4 @@ export const PlayerControl = (): ReactElement => {
             onChange: (rgb) => dispatch(setBackground(rgb)),
         }),
     );
-}
+};

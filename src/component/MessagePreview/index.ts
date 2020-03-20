@@ -10,7 +10,7 @@ import {DefaultFeed} from '../../constants';
 
 export const MessagePreview = ({id}: {id: MessageId}): ReactElement => {
     const message = useMessage(id);
-    const filterId = useMemo(() => generateId(), [message.frameColor]);
+    const filterId = useMemo(() => `${generateId()}-${message.frameColor}`, [message.frameColor]);
     const feed = DefaultFeed;
     const {width, height} = useMessageMetrics(message, feed);
     return createElement(

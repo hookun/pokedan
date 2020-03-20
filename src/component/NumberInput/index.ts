@@ -1,10 +1,19 @@
-import {createElement, Fragment, useMemo, useCallback, ReactElement} from 'react';
+import {createElement, Fragment, useMemo, ReactElement, useCallback, ChangeEvent} from 'react';
 import {generateId} from '../../util/generateId';
 import className from './style.css';
 import {Input} from '../Input';
 
 export const NumberInput = (
-    props: {
+    {
+        title,
+        value,
+        onChange: onChangeValue,
+        type = 'number',
+        min = 0,
+        max = null,
+        step = 1,
+        placeholder,
+    }: {
         title: string,
         value: number,
         onChange: (value: number) => void,
@@ -16,31 +25,29 @@ export const NumberInput = (
     },
 ): ReactElement => {
     const id = useMemo(generateId, []);
-    const onChange = useCallback((event) => {
-        props.onChange(Number(event.currentTarget.value));
-    }, [props.onChange]);
-    const step = props.step || 1;
+    const onChange = useCallback(
+        (event: ChangeEvent<HTMLInputElement>) => {
+            onChangeValue(Number(event.currentTarget.value));
+        },
+        [onChangeValue],
+    );
     return createElement(
         Fragment,
         null,
-        createElement(
-            'label',
-            {className: className.label, htmlFor: id},
-            props.title,
-        ),
+        createElement('label', {className: className.label, htmlFor: id}, title),
         createElement(
             Input,
             {
                 className: className.input,
-                id: id,
-                type: props.type || 'number',
-                min: props.min || 0,
-                max: props.max || null,
+                id,
+                type,
+                min,
+                max,
                 step,
-                defaultValue: Math.round(props.value / step) * step,
-                placeholder: props.placeholder,
+                defaultValue: Math.round(value / step) * step,
+                placeholder,
                 onChange,
             },
         ),
     );
-}
+};

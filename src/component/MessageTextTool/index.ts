@@ -35,7 +35,7 @@ export const MessageTextTool = ({id}: {id: MessageId}): ReactElement => {
             }
         }
         return null;
-    }, [range]);
+    }, [range, id]);
     if (!range) {
         return null;
     }

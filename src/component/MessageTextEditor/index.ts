@@ -20,27 +20,26 @@ export const MessageTextEditor = (
         if (range) {
             dispatch(setMessageRange({id, range}));
         }
-    }, [range]);
+    }, [range, dispatch, id]);
     const message = useMessage(id);
     const onMutation = useCallback(() => {
         const fragments = [...getMessageFragments(ref.current)];
         dispatch(updateMessage({id, fragments}));
-    }, [ref, id]);
+    }, [ref, id, dispatch]);
     useMutationObserver(
         ref,
         onMutation,
         {characterData: true, childList: true, subtree: true},
     );
     useEffect(() => {
-        const {fragments} = message;
         const editorElement = ref.current;
         if (editorElement && !range) {
             clearNode(editorElement);
-            for (const element of parseFragments(fragments)) {
+            for (const element of parseFragments(message.fragments)) {
                 editorElement.appendChild(element);
             }
         }
-    }, [ref, id]);
+    }, [ref, id, message.fragments, range]);
     return createElement(
         'div',
         {
