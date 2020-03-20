@@ -9,5 +9,12 @@ type SupportedActions =
 export type MessageRangeState = MessageRange | null;
 
 export const reducer = createReducer<MessageRangeState, ActionType<SupportedActions>>(null)
-.handleAction(setMessageRange, (_, {payload: range}) => range)
+.handleAction(setMessageRange, (oldState, {payload: newState}) => {
+    const {id: oldId, range: oldRange} = oldState || {};
+    const {id: newId, range: newRange} = newState || {};
+    if (newId === oldId && newRange === oldRange) {
+        return oldState;
+    }
+    return newState;
+})
 .handleAction(clearMessageRange, () => null);

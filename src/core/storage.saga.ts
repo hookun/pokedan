@@ -4,13 +4,15 @@ import {getType, ActionType} from 'typesafe-actions';
 import {Message, MessageId} from '../types';
 import {restart} from './action';
 import {setFile, initializePlayer, setFrame, setWidth, setHeight, setScale, setBackground} from './Player/action';
-import {updateMessage, initializeMessages, deleteMessage, insertMessage} from './Message/action';
+import {initializeMessages, deleteMessage, insertMessage} from './Message/action';
 import {selectMessageMap, selectMessageList} from './Message/selector';
 import {selectPlayerFile, selectPlayer} from './Player/selector';
 import {Player} from './Player/reducer';
 import {readDB, writeDB, Stores, deleteDB} from '../util/db';
 import {textColors} from '../constants';
 import {reduceMessages} from '../util/message';
+import {MessageListActions} from './Message/listReducer';
+import {PatchMessageActions} from './Message/mapReducer';
 
 const playerKey = (file: string): string => `${file}/Player`;
 const messageListKey = (file: string): string => `${file}/Messages`;
@@ -127,7 +129,6 @@ export const savePlayerData = function* () {
 };
 
 export const deleteMessageFromDB = function* ({payload: id}: ActionType<typeof deleteMessage>) {
-    console.log({delete: id});
     yield call(deleteDB, Stores.Message, id);
 };
 
@@ -139,7 +140,7 @@ export const saveMessageAfterDelay = function* (id: MessageId, delayInMs: number
 export const saveMessage = function* (delayInMs: number) {
     const tasks = new Map<MessageId, Task>();
     while (1) {
-        const {payload: {id}}: ActionType<typeof updateMessage> = yield take(getType(updateMessage));
+        const {payload: {id}}: ActionType<PatchMessageActions> = yield take(PatchMessageActions.map(getType));
         const previousTask: Task = tasks.get(id);
         if (previousTask) {
             yield cancel(previousTask);
@@ -167,7 +168,7 @@ export const list = () => [
             getType(initializeMessages),
             getType(insertMessage),
             getType(deleteMessage),
-            getType(updateMessage),
+            ...MessageListActions.map(getType),
         ],
         saveMessageList,
     ),

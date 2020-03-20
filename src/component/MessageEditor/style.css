@@ -8,7 +8,7 @@
     row-gap: var(--Gap);
     justify-content: center;
     align-items: end;
-    padding: 1rem 0;
+    padding: 2rem 0;
     overflow: hidden;
     counter-increment: message;
 }
@@ -16,7 +16,7 @@
 .container::after {
     content: '#' counter(message) ' ' attr(data-title);
     position: absolute;
-    top: 0;
+    top: 0.5rem;
     left: 1rem;
     font-size: 80%;
     line-height: 1rem;

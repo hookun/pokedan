@@ -8,7 +8,7 @@ import {generateId} from '../../util/generateId';
 import {DefaultFeed} from '../../constants';
 import {useMessageMetrics} from '../../use/MessageMetrics';
 import {MessageId} from '../../types';
-import {selectPlayerFrame} from '../../core/Player/selector';
+import {selectPlayerFrame, selectPlayerFrameType} from '../../core/Player/selector';
 
 export const MessageWindow = ({id}: {id: MessageId}): ReactElement => {
     const message = useMessage(id);
@@ -16,6 +16,7 @@ export const MessageWindow = ({id}: {id: MessageId}): ReactElement => {
     const feed = DefaultFeed;
     const {width, height, left, top} = useMessageMetrics(message, feed);
     const frame = useSelector(selectPlayerFrame);
+    const frameType = useSelector(selectPlayerFrameType);
     const length = message.from + Math.floor(Math.max(0, (frame - message.start) / message.speed));
     return createElement(
         'g',
@@ -29,7 +30,7 @@ export const MessageWindow = ({id}: {id: MessageId}): ReactElement => {
             },
         },
         createElement(ColorFilter, {color: message.frameColor, id: filterId}),
-        createElement(Frame, {width, height, filter: filterId}),
+        createElement(Frame, {width, height, filter: filterId, frameType}),
         createElement(Type, {
             fragments: message.fragments,
             feed,

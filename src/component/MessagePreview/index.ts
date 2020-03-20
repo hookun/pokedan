@@ -7,8 +7,11 @@ import {ColorFilter} from '../ColorFilter';
 import {generateId} from '../../util/generateId';
 import {useMessageMetrics} from '../../use/MessageMetrics';
 import {DefaultFeed} from '../../constants';
+import {useSelector} from 'react-redux';
+import {selectPlayerFrameType} from '../../core/Player/selector';
 
 export const MessagePreview = ({id}: {id: MessageId}): ReactElement => {
+    const frameType = useSelector(selectPlayerFrameType);
     const message = useMessage(id);
     const filterId = useMemo(() => `${generateId()}-${message.frameColor}`, [message.frameColor]);
     const feed = DefaultFeed;
@@ -17,7 +20,7 @@ export const MessagePreview = ({id}: {id: MessageId}): ReactElement => {
         'svg',
         {viewBox: `0 0 ${width} ${height}`},
         createElement(ColorFilter, {color: message.frameColor, id: filterId}),
-        createElement(Frame, {width, height, filter: filterId}),
+        createElement(Frame, {width, height, filter: filterId, frameType}),
         createElement(Type, {
             fragments: message.fragments,
             feed,

@@ -6,7 +6,7 @@ import {useMessage} from '../../use/Message';
 import {useMutationObserver} from '../../use/MutationObserver';
 import {useSelectionRangeInElement} from '../../use/SelectionRange';
 import {getMessageFragments} from '../../util/getMessageFragments';
-import {updateMessage} from '../../core/Message/action';
+import {setMessageFragments} from '../../core/Message/action';
 import {setMessageRange, clearMessageRange} from '../../core/MessageRange/action';
 import {parseFragments} from '../../util/message';
 
@@ -24,22 +24,23 @@ export const MessageTextEditor = (
     const message = useMessage(id);
     const onMutation = useCallback(() => {
         const fragments = [...getMessageFragments(ref.current)];
-        dispatch(updateMessage({id, fragments}));
+        dispatch(setMessageFragments({id, fragments}));
     }, [ref, id, dispatch]);
     useMutationObserver(
         ref,
         onMutation,
         {characterData: true, childList: true, subtree: true},
     );
+    const focused = Boolean(range);
     useEffect(() => {
         const editorElement = ref.current;
-        if (editorElement && !range) {
+        if (editorElement && !focused) {
             clearNode(editorElement);
             for (const element of parseFragments(message.fragments)) {
                 editorElement.appendChild(element);
             }
         }
-    }, [ref, id, message.fragments, range]);
+    }, [ref, id, message.fragments, focused]);
     return createElement(
         'div',
         {
@@ -48,7 +49,10 @@ export const MessageTextEditor = (
             className,
             contentEditable: true,
             suppressContentEditableWarning: true,
-            onBlur: () => dispatch(clearMessageRange()),
+            onBlur: useCallback(
+                () => dispatch(clearMessageRange()),
+                [dispatch],
+            ),
         },
     );
 };

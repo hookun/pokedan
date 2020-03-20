@@ -1,13 +1,13 @@
-import {createElement, Fragment, useMemo, ReactElement, useCallback, ChangeEvent} from 'react';
+import {createElement, Fragment, useMemo, ReactElement, useCallback, ChangeEvent, memo} from 'react';
 import {generateId} from '../../util/generateId';
 import className from './style.css';
 import {Input} from '../Input';
 
-export const NumberInput = (
+export const NumberInput = memo((
     {
         title,
         value,
-        onChange: onChangeValue,
+        onChange,
         type = 'number',
         min = 0,
         max = null,
@@ -25,16 +25,14 @@ export const NumberInput = (
     },
 ): ReactElement => {
     const id = useMemo(generateId, []);
-    const onChange = useCallback(
-        (event: ChangeEvent<HTMLInputElement>) => {
-            onChangeValue(Number(event.currentTarget.value));
-        },
-        [onChangeValue],
-    );
     return createElement(
         Fragment,
         null,
-        createElement('label', {className: className.label, htmlFor: id}, title),
+        createElement(
+            'label',
+            {className: className.label, htmlFor: id},
+            title,
+        ),
         createElement(
             Input,
             {
@@ -46,8 +44,14 @@ export const NumberInput = (
                 step,
                 defaultValue: Math.round(value / step) * step,
                 placeholder,
-                onChange,
+                onChange: useCallback(
+                    (event: ChangeEvent<HTMLInputElement>) => {
+                        const value = Number(event.currentTarget.value);
+                        onChange(value);
+                    },
+                    [onChange],
+                ),
             },
         ),
     );
-};
+});

@@ -6,6 +6,7 @@
     opacity: 0.7;
     pointer-events: none;
     user-select: none;
+    font-size: 80%;
 }
 
 .available {

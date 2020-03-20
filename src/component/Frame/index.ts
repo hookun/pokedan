@@ -1,9 +1,8 @@
-import {createElement, Fragment, ReactElement} from 'react';
-import {useSelector} from 'react-redux';
+import {createElement, Fragment, ReactElement, memo} from 'react';
 import {useFrame} from '../../use/Frame';
-import {selectPlayerFrameType} from '../../core/Player/selector';
+import {FrameType} from '../../types';
 
-export const TopFrame = (
+export const TopFrame = memo((
     {x, y, width}: {
         x: number,
         y: number,
@@ -19,9 +18,9 @@ export const TopFrame = (
         createElement('rect', {x, y: y + 2, width, height, fill: 'rgb(61,69,175)'}),
         createElement('rect', {x, y: y + 1, width, height, fill: 'rgb(180,196,218)'}),
     );
-};
+});
 
-export const BottomFrame = (
+export const BottomFrame = memo((
     {x, y, width}: {
         x: number,
         y: number,
@@ -34,9 +33,9 @@ export const BottomFrame = (
     createElement('rect', {x, y: y + 1, width, height: 4, fill: 'rgb(73,87,179)'}),
     createElement('rect', {x, y: y + 2, width, height: 2, fill: 'rgb(130,160,183)'}),
     createElement('rect', {x, y: y + 2, width, height: 1, fill: 'rgb(180,196,218)'}),
-);
+));
 
-export const LeftFrame = (
+export const LeftFrame = memo((
     {x, y, height}: {
         x: number,
         y: number,
@@ -50,9 +49,9 @@ export const LeftFrame = (
     createElement('rect', {x: x + 1, y, width: 2, height, fill: 'rgb(130,160,183)'}),
     createElement('rect', {x: x + 4, y, width: 2, height, fill: 'rgb(50,49,173)'}),
     createElement('rect', {x: x + 2, y, width: 3, height, fill: 'rgb(180,196,218)'}),
-);
+));
 
-export const RightFrame = (
+export const RightFrame = memo((
     {x, y, height}: {
         x: number,
         y: number,
@@ -66,16 +65,16 @@ export const RightFrame = (
     createElement('rect', {x: x + 1, y, width: 2, height, fill: 'rgb(68,81,176)'}),
     createElement('rect', {x: x + 4, y, width: 2, height, fill: 'rgb(137,168,191)'}),
     createElement('rect', {x: x + 2, y, width: 3, height, fill: 'rgb(180,196,218)'}),
-);
+));
 
-export const Frame = (
-    {width, height, filter}: {
+export const Frame = memo((
+    {width, height, filter, frameType}: {
         width: number,
         height: number,
+        frameType: FrameType,
         filter: string,
     },
 ): ReactElement => {
-    const frameType = useSelector(selectPlayerFrameType);
     const {TopRight, BottomRight} = useFrame(frameType);
     const hBarWidth = width - (TopRight.width - 1) * 2;
     const vBarHeight = height - TopRight.height - BottomRight.height + 2;
@@ -126,4 +125,4 @@ export const Frame = (
             transform: 'scale(-1, 1)',
         }),
     );
-};
+});

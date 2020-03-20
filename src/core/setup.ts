@@ -6,6 +6,7 @@ import {reducer as MessageReducer} from './Message/reducer';
 import {reducer as PlayerReducer} from './Player/reducer';
 import {reducer as MessageRangeReducer} from './MessageRange/reducer';
 import {list as listPlayerSagas} from './Player/saga';
+import {list as listMessageSagas} from './Message/saga';
 import {list as storageSagas} from './storage.saga';
 
 export const setup = (): Store => {
@@ -22,6 +23,7 @@ export const setup = (): Store => {
         yield all([
             ...storageSagas(),
             ...listPlayerSagas(),
+            ...listMessageSagas(),
         ]);
     }));
     store.dispatch(restart());
