@@ -205,7 +205,6 @@ export const MessageControl = (
             title: '幅',
             value: message.width,
             min: 1,
-            step: 0.5,
             onChange: useCallback(
                 (width: number) => dispatch(setMessageWidth({id, width})),
                 [id, dispatch],
