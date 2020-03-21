@@ -24,10 +24,10 @@ export interface Message {
     end: number,
     from: number,
     frameColor: number,
-    col: number,
-    row: number,
     x: number,
     y: number,
+    width: number,
+    height: number,
     speed: number,
 }
 

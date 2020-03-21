@@ -71,10 +71,10 @@ export const textColors = [
 
 export const DisplayWidth = 256;
 export const DisplayHeight = 192;
-export const DefaultColumnCount = 21.5;
-export const DefaultRowCount = 3;
-export const DefaultX = 8;
-export const DefaultY = 130;
+export const DefaultMessageWidth = 240;
+export const DefaultMessageHeight = 52;
+export const DefaultMessageX = 8;
+export const DefaultMessageY = 130;
 export const DefaultMessageSpeed = 2;
 export const DefaultFeed: [number, number] = [10, 13];
 export const DBName = 'Pokedan';

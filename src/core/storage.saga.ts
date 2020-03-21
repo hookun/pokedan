@@ -10,7 +10,7 @@ import {selectPlayerFile, selectPlayer} from './Player/selector';
 import {Player} from './Player/reducer';
 import {readDB, writeDB, Stores, deleteDB} from '../util/db';
 import {textColors} from '../constants';
-import {reduceMessages} from '../util/message';
+import {reduceMessages, fillMessage} from '../util/message';
 import {MessageListActions} from './Message/listReducer';
 import {PatchMessageActions} from './Message/mapReducer';
 
@@ -77,7 +77,7 @@ export const onUpdateFile = function* ({payload: file}: ActionType<typeof setFil
     ]);
     if (messageList) {
         const messages: Array<Message> = yield all(messageList.map((id) => call(readDB, Stores.Message, id)));
-        yield put(initializeMessages(messages));
+        yield put(initializeMessages(messages.map((message) => fillMessage(message))));
     }
     if (player) {
         yield put(initializePlayer(player));

@@ -1,6 +1,12 @@
 import {Message, MessageId, MessageFragment} from '../types';
 import {generateId} from './generateId';
-import {DefaultColumnCount, DefaultRowCount, DefaultX, DefaultY, DefaultMessageSpeed} from '../constants';
+import {
+    DefaultMessageWidth,
+    DefaultMessageHeight,
+    DefaultMessageX,
+    DefaultMessageY,
+    DefaultMessageSpeed,
+} from '../constants';
 
 export const cloneMessageFragment = ({text, color}: MessageFragment): MessageFragment => ({
     text,
@@ -17,10 +23,10 @@ export const fillMessage = (...patches: Array<Partial<Message>>): Message => {
         end: messageLike.end || 200,
         from: messageLike.from || 0,
         frameColor: messageLike.frameColor || 0,
-        col: messageLike.col || DefaultColumnCount,
-        row: messageLike.row || DefaultRowCount,
-        x: messageLike.x || DefaultX,
-        y: messageLike.y || DefaultY,
+        width: messageLike.width || DefaultMessageWidth,
+        height: messageLike.height || DefaultMessageHeight,
+        x: messageLike.x || DefaultMessageX,
+        y: messageLike.y || DefaultMessageY,
         speed: 0 <= messageLike.speed ? messageLike.speed : DefaultMessageSpeed,
     };
 };

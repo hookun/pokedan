@@ -1,11 +1,28 @@
 import {MessageFragment, Printee} from '../types';
 import {destructFragments} from './destructFragments';
 
+const leftMargin = {
+    'し': -1,
+    '（': -2,
+    '）': -2,
+    '?': -2,
+    '？': -2,
+};
+
+const rightMargin = {
+    'し': -1,
+    'も': -1,
+    '…': -1,
+    '（': -2,
+    '）': -2,
+    '。': -3,
+    '、': -3,
+};
+
 export const printFragments = function* (
     fragments: Array<MessageFragment>,
     [characterfeed, lineFeed]: [number, number],
 ): Generator<Printee> {
-    let previousCharacter = '';
     let x = 0;
     let y = 0;
     for (const {text: character, color} of destructFragments(fragments)) {
@@ -20,28 +37,9 @@ export const printFragments = function* (
                 x += characterfeed / 2;
                 break;
             default:
-                switch (`${previousCharacter}${character}`) {
-                    case '（':
-                        x -= 2;
-                        break;
-                    case '……':
-                        x -= 1;
-                        break;
-                    default:
-                }
+                x += leftMargin[character] || 0;
                 yield {character, color, x, y};
-                switch (character) {
-                    case '（':
-                        x += characterfeed - 2;
-                        break;
-                    case '。':
-                    case '、':
-                        x += characterfeed - 4;
-                        break;
-                    default:
-                        x += characterfeed;
-                }
+                x += characterfeed + (rightMargin[character] || 0);
         }
-        previousCharacter = character;
     }
 };

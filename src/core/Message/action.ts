@@ -31,13 +31,13 @@ export const setMessageFrameColor = createAction('setMessageFrameColor')<{
     id: MessageId,
     frameColor: number,
 }>();
-export const setMessageCol = createAction('setMessageCol')<{
+export const setMessageWidth = createAction('setMessageWidth')<{
     id: MessageId,
-    col: number,
+    width: number,
 }>();
-export const setMessageRow = createAction('setMessageRow')<{
+export const setMessageHeight = createAction('setMessageHeight')<{
     id: MessageId,
-    row: number,
+    height: number,
 }>();
 export const setMessageX = createAction('setMessageX')<{
     id: MessageId,

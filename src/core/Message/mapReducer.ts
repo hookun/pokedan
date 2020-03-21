@@ -8,8 +8,8 @@ import {
     setMessageEnd,
     setMessageFrom,
     setMessageFrameColor,
-    setMessageCol,
-    setMessageRow,
+    setMessageWidth,
+    setMessageHeight,
     setMessageX,
     setMessageY,
     setMessageSpeed,
@@ -21,8 +21,8 @@ export const PatchMessageActions = [
     setMessageEnd,
     setMessageFrom,
     setMessageFrameColor,
-    setMessageCol,
-    setMessageRow,
+    setMessageWidth,
+    setMessageHeight,
     setMessageX,
     setMessageY,
     setMessageSpeed,
@@ -34,8 +34,8 @@ export type PatchMessageActions =
 | typeof setMessageEnd
 | typeof setMessageFrom
 | typeof setMessageFrameColor
-| typeof setMessageCol
-| typeof setMessageRow
+| typeof setMessageWidth
+| typeof setMessageHeight
 | typeof setMessageX
 | typeof setMessageY
 | typeof setMessageSpeed
@@ -108,22 +108,22 @@ export const mapReducer = createReducer<Map<MessageId, Message>, ActionType<Mess
     newMap.set(id, {...message, frameColor});
     return newMap;
 })
-.handleAction(setMessageCol, (map, {payload: {id, col}}) => {
+.handleAction(setMessageWidth, (map, {payload: {id, width}}) => {
     const message = map.get(id);
-    if (message.col === col) {
+    if (message.width === width) {
         return map;
     }
     const newMap = new Map(map);
-    newMap.set(id, {...message, col});
+    newMap.set(id, {...message, width});
     return newMap;
 })
-.handleAction(setMessageRow, (map, {payload: {id, row}}) => {
+.handleAction(setMessageHeight, (map, {payload: {id, height}}) => {
     const message = map.get(id);
-    if (message.row === row) {
+    if (message.height === height) {
         return map;
     }
     const newMap = new Map(map);
-    newMap.set(id, {...message, row});
+    newMap.set(id, {...message, height});
     return newMap;
 })
 .handleAction(setMessageX, (map, {payload: {id, x}}) => {
