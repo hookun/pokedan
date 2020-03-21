@@ -1,4 +1,4 @@
-import {createElement, useCallback, ChangeEvent, ReactElement} from 'react';
+import {createElement, useCallback, ChangeEvent, ReactElement, Fragment} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {classnames} from '@hookun/util/classnames';
 import {
@@ -19,10 +19,84 @@ import {frameToSec} from '../../util/frameToSec';
 import {Input} from '../Input';
 import className from './style.css';
 
+export const PlayButton = (): ReactElement => {
+    const dispatch = useDispatch();
+    const paused = useSelector(selectPlayerPaused);
+    return createElement(
+        'button',
+        {
+            className: classnames(className.play, className.button),
+            onClick: useCallback(() => dispatch(setPause(!paused)), [dispatch, paused]),
+        },
+        paused ? '再生する' : '停止する',
+    );
+};
+
+export const ScaleController = (): ReactElement => {
+    const dispatch = useDispatch();
+    const scale = useSelector(selectPlayerScale);
+    return createElement(
+        Fragment,
+        null,
+        createElement(
+            'svg',
+            {
+                className: classnames(className.scale, className.button),
+                onClick: useCallback(
+                    () => dispatch(setScale(scale - 0.1)),
+                    [dispatch, scale],
+                ),
+                viewBox: '-1 -1 12 12',
+            },
+            createElement('path', {d: 'M0 5H10'}),
+        ),
+        `x${scale.toFixed(1)}`,
+        createElement(
+            'svg',
+            {
+                className: classnames(className.scale, className.button),
+                onClick: useCallback(
+                    () => dispatch(setScale(scale + 0.1)),
+                    [dispatch, scale],
+                ),
+                viewBox: '-1 -1 12 12',
+            },
+            createElement('path', {d: 'M0 5H10M5 0V10'}),
+        ),
+    );
+};
+
+export const SeekBar = (): ReactElement => {
+    const dispatch = useDispatch();
+    const paused = useSelector(selectPlayerPaused);
+    const frame = useSelector(selectPlayerFrame);
+    const duration = useSelector(selectMessageListDuration);
+    return createElement(
+        Input,
+        {
+            className: className.seek,
+            type: 'range',
+            min: 0,
+            max: duration,
+            step: 1,
+            defaultValue: frame,
+            onChange: useCallback(
+                (event: ChangeEvent<HTMLInputElement>) => {
+                    const frame = Number(event.currentTarget.value);
+                    if (!paused) {
+                        dispatch(setPause(true));
+                    }
+                    dispatch(setFrame(frame));
+                },
+                [dispatch, paused],
+            ),
+        },
+    );
+};
+
 export const PlayerDisplay = (): ReactElement => {
     const dispatch = useDispatch();
     const paused = useSelector(selectPlayerPaused);
-    const scale = useSelector(selectPlayerScale);
     const frame = useSelector(selectPlayerFrame);
     const style = useSelector(selectDisplayStyle);
     const id = useSelector(selectPlayerShadowFilterId);
@@ -53,36 +127,11 @@ export const PlayerDisplay = (): ReactElement => {
             createElement(ShadowFilter, {id}),
             ...messageIdList.map((id) => createElement(MessageWindow, {id})),
         ),
-        createElement(
-            'button',
-            {
-                className: classnames(className.play, className.button),
-                onClick: () => dispatch(setPause(!paused)),
-            },
-            paused ? '再生する' : '停止する',
-        ),
+        createElement(PlayButton),
         createElement(
             'div',
             {className: className.label},
-            createElement(
-                'svg',
-                {
-                    className: classnames(className.scale, className.button),
-                    onClick: () => dispatch(setScale(scale - 0.1)),
-                    viewBox: '-1 -1 12 12',
-                },
-                createElement('path', {d: 'M0 5H10'}),
-            ),
-            `x${scale.toFixed(1)}`,
-            createElement(
-                'svg',
-                {
-                    className: classnames(className.scale, className.button),
-                    onClick: () => dispatch(setScale(scale + 0.1)),
-                    viewBox: '-1 -1 12 12',
-                },
-                createElement('path', {d: 'M0 5H10M5 0V10'}),
-            ),
+            createElement(ScaleController),
             createElement(
                 Input,
                 {
@@ -97,17 +146,6 @@ export const PlayerDisplay = (): ReactElement => {
             ),
             `(${frameToSec(frame)}s) /${duration} (${frameToSec(duration)}s)`,
         ),
-        createElement(
-            Input,
-            {
-                className: className.seek,
-                type: 'range',
-                min: 0,
-                max: duration,
-                step: 1,
-                defaultValue: frame,
-                onChange: onChangeFrame,
-            },
-        ),
+        createElement(SeekBar),
     );
 };

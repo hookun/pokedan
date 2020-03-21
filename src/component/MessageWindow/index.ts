@@ -1,4 +1,4 @@
-import {createElement, useMemo, ReactElement} from 'react';
+import {createElement, useMemo, ReactElement, useCallback} from 'react';
 import {useSelector} from 'react-redux';
 import {Type} from '../Type';
 import {ColorFilter} from '../ColorFilter';
@@ -18,17 +18,18 @@ export const MessageWindow = ({id}: {id: MessageId}): ReactElement => {
     const frame = useSelector(selectPlayerFrame);
     const frameType = useSelector(selectPlayerFrameType);
     const length = message.from + Math.floor(Math.max(0, (frame - message.start) / message.speed));
+    const onClick = useCallback(
+        () => {
+            const editor = document.querySelector(`#Editor-${id}`);
+            if (editor) {
+                editor.scrollIntoView({behavior: 'smooth', block: 'end'});
+            }
+        },
+        [id],
+    );
     return createElement(
         'g',
-        {
-            transform: `translate(${left}, ${top})`,
-            onClick: () => {
-                const editor = document.querySelector(`#Editor-${id}`);
-                if (editor) {
-                    editor.scrollIntoView({behavior: 'smooth', block: 'end'});
-                }
-            },
-        },
+        {transform: `translate(${left}, ${top})`, onClick},
         createElement(ColorFilter, {color: message.frameColor, id: filterId}),
         createElement(Frame, {width, height, filter: filterId, frameType}),
         createElement(Type, {
