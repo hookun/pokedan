@@ -1,6 +1,6 @@
 import {createElement, Fragment, useCallback, ReactElement} from 'react';
 import {classnames} from '@hookun/util/classnames';
-import {rgbToHex, hexToRGB, isBright} from '../../util/color';
+import {rgbToHex, hexToRGB, rgbToGrayScale} from '@hookun/util/color';
 import {Input} from '../Input';
 import className from './style.css';
 
@@ -29,7 +29,7 @@ export const RGBInput = (
                 {
                     className: classnames(
                         className.hex,
-                        isBright(value) && className.bright,
+                        0.6 < rgbToGrayScale(value) && className.bright,
                     ),
                     style: {backgroundColor: hex},
                 },
